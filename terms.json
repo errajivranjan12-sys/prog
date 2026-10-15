@@ -1,0 +1,1412 @@
+[
+  {
+    "id": "rtb",
+    "name": "RTB — Real-Time Bidding",
+    "abbr": "Real-Time Bidding",
+    "aka": "Programmatic Auction, Open Auction",
+    "category": "programmatic",
+    "difficulty": "beginner",
+    "short": "An automated auction where ad impressions are bought and sold in milliseconds, each time a webpage loads.",
+    "definition": "Real-Time Bidding (RTB) is the backbone of programmatic advertising. Every time someone opens a webpage, an automated auction fires behind the scenes — advertisers bid for the chance to show their ad to that specific person, and the whole process completes in under 100 milliseconds. The highest bidder wins, their ad loads, and the user sees it without ever knowing an auction just happened.",
+    "whyItMatters": "Before RTB existed, advertisers had to negotiate directly with publishers and buy ad space in bulk, often weeks in advance. RTB changed everything. Now you can target the exact type of person you want, set how much you're willing to pay per impression, and only spend money when your ad actually has a chance to be seen.",
+    "example": "Imagine you're selling running shoes. A user who just Googled \"marathon training\" visits a news website. In the 50ms it takes the page to load, an RTB auction fires. Your DSP recognises this user matches your audience (fitness-focused, likely to buy sports gear). You bid $3.50 CPM. Your competitor bids $2.80. You win. Your running shoe ad loads. The user sees it. All of this happened before the page finished loading.",
+    "steps": [
+      {
+        "title": "Page Load Triggers Bid Request",
+        "desc": "A user visits a website. The publisher's SSP sends a bid request containing anonymised user data, page context, and ad slot details."
+      },
+      {
+        "title": "DSPs Evaluate & Bid",
+        "desc": "Multiple DSPs receive the bid request simultaneously. Each evaluates whether this impression matches their campaign criteria."
+      },
+      {
+        "title": "Auction Runs",
+        "desc": "The ad exchange collects all bids and runs an auction — usually a second-price auction, where the winner pays £0.01 above the second-highest bid."
+      },
+      {
+        "title": "Ad is Served",
+        "desc": "The winning ad creative is fetched and loaded into the ad slot. The entire process takes 80–120ms."
+      }
+    ],
+    "related": [
+      "dsp",
+      "ssp",
+      "ad-exchange",
+      "cpm",
+      "bid-shading"
+    ],
+    "diagram": "rtb"
+  },
+  {
+    "id": "dsp",
+    "name": "DSP — Demand-Side Platform",
+    "abbr": "Demand-Side Platform",
+    "aka": "Buying Platform, Media Buying Platform",
+    "category": "programmatic",
+    "difficulty": "beginner",
+    "short": "A platform that allows advertisers and agencies to buy digital ad inventory programmatically, across multiple ad exchanges at once.",
+    "definition": "A Demand-Side Platform (DSP) is the buying tool on the advertiser's side of programmatic advertising. Think of it as a single dashboard that lets a media buyer access thousands of publishers, set targeting rules, define budgets, and bid in real-time auctions — all from one place. Without a DSP, you'd have to negotiate with each publisher individually.",
+    "whyItMatters": "DSPs give advertisers control, efficiency, and scale. You can set up a campaign once and let the DSP automatically find the best placements across the entire web, adjusting bids in real-time based on performance data.",
+    "example": "A travel brand wants to reach people planning holidays to Dubai. Using DV360 (Google's DSP), they set targeting for users who've searched for \"Dubai flights\" or \"Dubai hotels\". The DSP finds those users across thousands of websites and apps, bids for their impressions automatically, and shows the ad — all without the advertiser needing to call a single publisher.",
+    "steps": [
+      {
+        "title": "Campaign Setup",
+        "desc": "Advertiser uploads creatives, sets budgets, defines targeting (demographics, interests, location, behaviour)."
+      },
+      {
+        "title": "Bid Requests Arrive",
+        "desc": "The DSP connects to multiple SSPs and ad exchanges, receiving millions of bid requests per second."
+      },
+      {
+        "title": "Real-Time Decision",
+        "desc": "DSP's algorithms evaluate each impression: Does this user match our audience? Is this placement brand-safe? What's the optimal bid?"
+      },
+      {
+        "title": "Reporting & Optimisation",
+        "desc": "The DSP tracks all impressions, clicks, and conversions, feeding data back to improve future bids."
+      }
+    ],
+    "related": [
+      "ssp",
+      "rtb",
+      "dmp",
+      "dv360",
+      "amazon-dsp"
+    ],
+    "diagram": "dsp-ssp"
+  },
+  {
+    "id": "ssp",
+    "name": "SSP — Supply-Side Platform",
+    "abbr": "Supply-Side Platform",
+    "aka": "Sell-Side Platform",
+    "category": "programmatic",
+    "difficulty": "beginner",
+    "short": "A platform that helps publishers manage, sell, and maximise revenue from their digital advertising inventory.",
+    "definition": "A Supply-Side Platform (SSP) is the seller's equivalent of a DSP. It's the technology that publishers (website owners, app developers) use to make their ad inventory available to programmatic buyers. The SSP connects to multiple ad exchanges and DSPs, running auctions and trying to get the highest possible price for each ad impression.",
+    "whyItMatters": "Before SSPs, publishers had to manage individual relationships with every advertiser and agency. SSPs automated this — a publisher can now expose their entire inventory to thousands of potential buyers at once, driving up competition and revenue.",
+    "example": "A news website has 2 million daily visitors. Each time a reader loads an article, there's an ad slot. The publisher's SSP (like Magnite or PubMatic) sends that impression to dozens of DSPs simultaneously. It collects all the bids, picks the highest one, and serves that advertiser's ad.",
+    "related": [
+      "dsp",
+      "rtb",
+      "ad-exchange",
+      "floor-price",
+      "header-bidding"
+    ],
+    "steps": [
+      {
+        "title": "Inventory Packaged",
+        "desc": "Publisher configures their ad slots, sets floor prices, and decides which buyers can access their inventory."
+      },
+      {
+        "title": "User Visits Page",
+        "desc": "When a user loads a page, the SSP fires a bid request to all connected DSPs and exchanges."
+      },
+      {
+        "title": "Auction Conducted",
+        "desc": "SSP collects bids, enforces floor prices, and selects the winning bid."
+      },
+      {
+        "title": "Revenue Optimised",
+        "desc": "SSP tracks fill rates and CPMs over time, helping the publisher understand what their inventory is worth."
+      }
+    ]
+  },
+  {
+    "id": "dmp",
+    "name": "DMP — Data Management Platform",
+    "abbr": "Data Management Platform",
+    "category": "audience",
+    "difficulty": "intermediate",
+    "short": "A centralised system that collects, organises, and activates audience data from multiple sources for ad targeting.",
+    "definition": "A Data Management Platform (DMP) is a data warehouse built specifically for advertising. It pulls in audience data from multiple sources — your website, CRM, third-party data providers — organises it into audience segments, and makes those segments available to your DSP for targeting. DMPs were the dominant data layer in programmatic for years, though CDPs are now eating into their role.",
+    "whyItMatters": "A DMP lets you say \"show this ad only to people who visited my pricing page in the last 30 days but didn't buy\" — and then scale that targeting across the entire internet, not just your own site.",
+    "example": "An e-commerce fashion brand uses a DMP to combine data from three sources: their website (users who viewed jackets), their email list (subscribers who opened the winter sale email), and a third-party data provider (users classified as \"fashion enthusiasts\"). The DMP creates a single \"High-Intent Winter Buyers\" segment and pushes it to DV360 for targeting.",
+    "related": [
+      "cdp",
+      "first-party-data",
+      "audience-segment",
+      "dsp",
+      "retargeting"
+    ]
+  },
+  {
+    "id": "cdp",
+    "name": "CDP — Customer Data Platform",
+    "abbr": "Customer Data Platform",
+    "category": "audience",
+    "difficulty": "intermediate",
+    "short": "A platform that builds unified, persistent customer profiles from all first-party data sources, primarily for marketing activation.",
+    "definition": "A Customer Data Platform (CDP) is similar to a DMP but more focused on known, first-party customer data. While a DMP deals largely with anonymous, cookie-based audience data, a CDP creates persistent, identified customer profiles by joining data from your CRM, email, website, app, and point-of-sale systems. It becomes the single source of truth for who your customers are.",
+    "whyItMatters": "As third-party cookies disappear and privacy regulations tighten, first-party data is becoming the most valuable asset in digital advertising. CDPs help you collect, unify, and activate that data compliantly.",
+    "example": "A hotel chain uses Segment (a popular CDP) to connect their booking website, mobile app, email system, and front-desk software. When a guest books a stay, upgrades, and then downloads the app, all those touchpoints are linked to a single profile. The marketing team can then export a \"Loyalty members who haven't booked in 6 months\" audience directly to DV360 for a win-back campaign.",
+    "related": [
+      "dmp",
+      "first-party-data",
+      "audience-segment",
+      "retargeting"
+    ]
+  },
+  {
+    "id": "ad-exchange",
+    "name": "Ad Exchange",
+    "abbr": "",
+    "category": "programmatic",
+    "difficulty": "beginner",
+    "short": "A digital marketplace where publishers sell and advertisers buy ad inventory through real-time auctions.",
+    "definition": "An Ad Exchange is the neutral marketplace that sits between SSPs (publishers) and DSPs (advertisers). Think of it as a stock exchange, but for ad impressions instead of shares. Publishers list their available inventory, advertisers bid on it, and the exchange runs the auction and ensures the transaction completes. Major exchanges include Google Ad Exchange, OpenX, and Index Exchange.",
+    "whyItMatters": "Ad exchanges created the open programmatic marketplace. They standardised how inventory is bought and sold, giving advertisers access to publishers they'd never be able to negotiate with directly.",
+    "example": "The Guardian news site has 50,000 users reading articles at 9am. Their SSP sends all those available impressions to Google Ad Exchange. Fifteen different DSPs bid on those impressions simultaneously. The exchange conducts 50,000 individual auctions in seconds, finds winners for each, and serves ads.",
+    "related": [
+      "rtb",
+      "dsp",
+      "ssp",
+      "pmp",
+      "floor-price"
+    ]
+  },
+  {
+    "id": "pmp",
+    "name": "PMP — Private Marketplace",
+    "abbr": "Private Marketplace",
+    "aka": "Curated Marketplace, Invite-Only Auction",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "A private, invitation-only version of RTB where select advertisers get exclusive access to premium publisher inventory.",
+    "definition": "A Private Marketplace (PMP) is like a VIP auction. Instead of competing in the open market with thousands of other buyers, you have a direct deal with a specific publisher. The publisher gives you a unique Deal ID, which you enter into your DSP. When that publisher has an impression matching your targeting, your DSP gets a first look — or exclusive access — to bid on it before it goes to the open market.",
+    "whyItMatters": "PMPs give advertisers access to premium inventory (think Forbes, CNN, or BBC) at a negotiated price, while publishers earn more and maintain control over who advertises on their site.",
+    "example": "A luxury watch brand wants to appear only on premium business and lifestyle sites. They negotiate a PMP deal with the Financial Times. The FT provides a Deal ID: \"FT-LUX-001\". The brand enters this ID into DV360. Now whenever a high-net-worth FT reader loads a page, the watch brand's DSP gets exclusive first access to bid on that impression.",
+    "steps": [
+      {
+        "title": "Negotiation",
+        "desc": "Advertiser and publisher agree on inventory type, audience, floor price, and volume."
+      },
+      {
+        "title": "Deal ID Created",
+        "desc": "Publisher's SSP generates a unique Deal ID for the arrangement."
+      },
+      {
+        "title": "DSP Activated",
+        "desc": "Advertiser enters the Deal ID into their DSP and sets campaign parameters."
+      },
+      {
+        "title": "Private Auction Runs",
+        "desc": "When eligible impressions appear, invited buyers get priority access before open market."
+      }
+    ],
+    "related": [
+      "pg-deal",
+      "preferred-deal",
+      "deal-id",
+      "rtb",
+      "ssp"
+    ]
+  },
+  {
+    "id": "pg-deal",
+    "name": "PG Deal — Programmatic Guaranteed",
+    "abbr": "Programmatic Guaranteed",
+    "aka": "Automated Guaranteed, Programmatic Direct",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "A direct deal between an advertiser and publisher where a fixed number of impressions are guaranteed at a fixed price.",
+    "definition": "A Programmatic Guaranteed (PG) deal is the most premium type of programmatic transaction. You agree upfront: \"I will buy 500,000 impressions on your site, at $15 CPM, during this campaign period.\" The publisher guarantees delivery; the advertiser guarantees spend. It works like a traditional direct IO, but executed through programmatic pipes — so you keep all the automation benefits.",
+    "whyItMatters": "For brand campaigns where you need certainty — a product launch, a seasonal push, a TV sync — PG deals ensure you get exactly what you planned. No auction risk, no inventory shortfalls.",
+    "example": "A smartphone brand launching a new model needs 2 million impressions on YouTube's homepage takeover during launch week. They negotiate a PG deal: 2M impressions, fixed at $12 CPM, delivered programmatically through DV360.",
+    "related": [
+      "pmp",
+      "preferred-deal",
+      "io",
+      "deal-id"
+    ]
+  },
+  {
+    "id": "preferred-deal",
+    "name": "Preferred Deal",
+    "abbr": "",
+    "aka": "First Look Deal, Fixed-Price Deal",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "A deal where a publisher gives an advertiser first refusal on specific inventory at a fixed price, but with no guaranteed delivery.",
+    "definition": "A Preferred Deal (also called a First Look deal) sits between a PMP and open auction. The publisher offers inventory at a fixed, agreed CPM. When an eligible impression becomes available, your DSP gets to see it first and decide whether to buy at the agreed price.",
+    "example": "A car brand agrees a Preferred Deal with a motoring magazine: \"Whenever a user in the UK visits your homepage, offer us that impression at £8 CPM. We might not always buy, but we get first look.\" When a UK user loads the homepage, the DSP evaluates whether to buy.",
+    "related": [
+      "pmp",
+      "pg-deal",
+      "floor-price"
+    ]
+  },
+  {
+    "id": "floor-price",
+    "name": "Floor Price",
+    "abbr": "",
+    "aka": "Price Floor, Reserve Price",
+    "category": "programmatic",
+    "difficulty": "beginner",
+    "short": "The minimum price a publisher is willing to accept for an ad impression in an auction.",
+    "definition": "A floor price (or price floor) is the minimum CPM a publisher sets for their ad inventory. If no buyer bids above the floor price, the impression goes unsold (or fills with a house ad). Publishers use floor prices to protect their inventory's perceived value.",
+    "whyItMatters": "Floor prices are a publisher's main lever for revenue management. Set them too low, and you devalue your inventory. Set them too high, and your fill rate drops — you leave impressions unsold.",
+    "example": "A premium business news site decides their homepage banner is worth at least $5 CPM. They set a $5 floor price. If a campaign bids $4.80, it loses automatically — even if no other bid comes in. The impression goes unfilled. This protects the site from training advertisers to expect cheap inventory.",
+    "related": [
+      "rtb",
+      "ssp",
+      "fill-rate",
+      "cpm"
+    ]
+  },
+  {
+    "id": "header-bidding",
+    "name": "Header Bidding",
+    "abbr": "",
+    "aka": "Pre-Bid, Advance Bidding, Prebid",
+    "category": "programmatic",
+    "difficulty": "advanced",
+    "short": "A technology that allows publishers to offer their inventory to multiple ad exchanges simultaneously before the ad server makes a decision.",
+    "definition": "Header bidding was a revolution for publishers. In the old \"waterfall\" system, ad networks were called one at a time. Header bidding changed this by allowing all buyers to compete at the same time. JavaScript code in the page's header fires bid requests to multiple SSPs simultaneously, collects all bids, and passes the highest one to the publisher's ad server.",
+    "whyItMatters": "For publishers, header bidding dramatically increased revenue — more competition means higher CPMs. For advertisers, it created more transparency and fairer access to premium inventory.",
+    "example": "A sports website uses Prebid.js. When a user loads a page, bid requests go to Google Ad Exchange, Magnite, Index Exchange, and OpenX simultaneously. Google bids $2.20, Magnite bids $3.10, Index bids $2.80. Magnite wins at $3.10. The whole process happens before the page renders.",
+    "steps": [
+      {
+        "title": "User Loads Page",
+        "desc": "Browser executes header bidding JavaScript before the main page content loads."
+      },
+      {
+        "title": "Parallel Auctions",
+        "desc": "Bid requests fire simultaneously to all connected SSPs and exchanges."
+      },
+      {
+        "title": "Bids Collected",
+        "desc": "All bids come back (usually within 300–500ms timeout). Highest bid is selected."
+      },
+      {
+        "title": "Ad Server Decision",
+        "desc": "The winning bid competes with direct-sold campaigns in the publisher's ad server."
+      }
+    ],
+    "related": [
+      "ssp",
+      "rtb",
+      "waterfall",
+      "floor-price"
+    ]
+  },
+  {
+    "id": "waterfall",
+    "name": "Waterfall / Daisy Chain",
+    "abbr": "",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "The old method of selling remnant inventory, where ad networks are called sequentially until one fills the impression.",
+    "definition": "Before header bidding, publishers used a waterfall (or daisy chain) to sell unsold inventory. The publisher's ad server would call the first network on the list. If it couldn't fill the impression above the floor price, it would call the second, then the third, and so on.",
+    "whyItMatters": "Understanding waterfall helps you understand why header bidding was such a big deal. The waterfall system was inefficient — buyers lower on the list never got a fair shot at premium impressions.",
+    "example": "A mid-sized blog uses Google Ad Manager. Their waterfall: first call Google AdSense, then AppNexus, then a remnant network. 60% fill via AdSense at $1.20 CPM. Of the remainder, half fill via AppNexus at $0.80 CPM. The remaining 20% go to the remnant network at $0.20 CPM.",
+    "related": [
+      "header-bidding",
+      "ssp",
+      "fill-rate"
+    ]
+  },
+  {
+    "id": "deal-id",
+    "name": "Deal ID",
+    "abbr": "",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "A unique identifier assigned to a specific programmatic deal between a publisher and an advertiser.",
+    "definition": "A Deal ID is a unique string of characters (e.g., \"Publisher123-ABC-2024\") that acts as a key to unlock a specific programmatic deal. When a publisher creates a PMP, PG, or Preferred Deal, their SSP generates a Deal ID. The advertiser enters this ID into their DSP, which then knows to bid on eligible impressions from that specific deal.",
+    "example": "Sky Sports creates a PMP for sports-themed ad inventory and shares Deal ID \"SKYSPORTS-SPORT-PACK-01\" with three sports brands. A football kit manufacturer enters this ID into their DSP.",
+    "related": [
+      "pmp",
+      "pg-deal",
+      "ssp",
+      "dsp"
+    ]
+  },
+  {
+    "id": "ad-server",
+    "name": "Ad Server",
+    "abbr": "",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "A technology platform that stores, manages, and delivers digital ads to websites and apps, while tracking performance.",
+    "definition": "An ad server is the central engine of digital advertising. Publishers use it to manage their ad inventory and decide which ad shows in which slot. Advertisers use it to store their creatives, track delivery, and measure campaign performance independently from what publishers report. The most widely used ad server is Google Campaign Manager 360 (CM360).",
+    "whyItMatters": "Ad servers give advertisers an independent source of truth. Without one, you'd have to rely entirely on what each publisher tells you about how many impressions were delivered. Ad servers also enable frequency capping, creative rotation, audience targeting, and unified cross-publisher reporting.",
+    "example": "An agency runs a campaign across 10 different publishers for a car brand. Instead of getting 10 separate reports, they use CM360 as their third-party ad server. All creatives are uploaded once to CM360. Each publisher receives an ad tag from CM360.",
+    "related": [
+      "cm360",
+      "ad-tag",
+      "trafficking",
+      "impression"
+    ]
+  },
+  {
+    "id": "cm360",
+    "name": "CM360 — Campaign Manager 360",
+    "abbr": "Campaign Manager 360",
+    "aka": "DoubleClick Campaign Manager, DCM, DFA",
+    "category": "tech",
+    "difficulty": "intermediate",
+    "short": "Google's enterprise ad serving platform used by advertisers and agencies to manage, track, and report on digital campaigns.",
+    "definition": "Campaign Manager 360 (previously known as DoubleClick Campaign Manager or DCM) is Google's third-party ad server. It's the industry standard for agencies and large advertisers. CM360 lets you upload creative assets, build ad tags, traffic campaigns to publishers, track delivery in real-time, build custom reports, and set up conversion tracking.",
+    "whyItMatters": "For anyone running multi-publisher campaigns, CM360 is the single source of truth. It eliminates discrepancies between what publishers claim they delivered and what was actually seen.",
+    "example": "An agency uses CM360 for a client's awareness campaign. They upload 15 different banner sizes and video assets. CM360 generates a set of ad tags for each publisher. The trafficking team applies frequency caps (max 5 impressions per user per day), sets up A/B creative rotation, and builds a reporting dashboard.",
+    "related": [
+      "ad-server",
+      "dv360",
+      "trafficking",
+      "ad-tag",
+      "impression"
+    ]
+  },
+  {
+    "id": "dv360",
+    "name": "DV360 — Display & Video 360",
+    "abbr": "Display & Video 360",
+    "aka": "Google DV360, DoubleClick Bid Manager, DBM",
+    "category": "tech",
+    "difficulty": "intermediate",
+    "short": "Google's enterprise DSP, part of the Google Marketing Platform, used to buy programmatic display, video, audio, and CTV advertising.",
+    "definition": "Display & Video 360 (DV360) is Google's enterprise-level Demand-Side Platform, integrated within the Google Marketing Platform alongside CM360, Search Ads 360, and Analytics 360. It allows media buyers to access open exchanges, private marketplaces, and programmatic guaranteed deals for display, video, audio, native, and CTV inventory.",
+    "whyItMatters": "DV360 is the go-to DSP for agencies managing large, multi-format programmatic campaigns. Its integration with Google's ecosystem — including YouTube, audience data from Google, and direct links to CM360 — makes it uniquely powerful.",
+    "example": "A retail brand running a seasonal campaign uses DV360 to buy: YouTube pre-roll video for awareness, display banners on the open exchange for retargeting, a PMP deal with Condé Nast for premium placements, and CTV inventory for living-room reach.",
+    "related": [
+      "dsp",
+      "cm360",
+      "rtb",
+      "amazon-dsp",
+      "youtube-ads"
+    ]
+  },
+  {
+    "id": "amazon-dsp",
+    "name": "Amazon DSP",
+    "abbr": "",
+    "category": "tech",
+    "difficulty": "intermediate",
+    "short": "Amazon's demand-side platform that lets advertisers buy display, video, and audio ads using Amazon's unique shopper data.",
+    "definition": "Amazon DSP is one of the most valuable DSPs available because of its exclusive access to Amazon's first-party shopping data. Advertisers can target audiences based on what people have browsed, searched for, or purchased on Amazon.com — arguably the most commercially rich behavioral data in advertising.",
+    "whyItMatters": "Nobody knows buyer intent like Amazon. If you can target someone who searched for \"noise-cancelling headphones\" on Amazon last week with a display ad on a news site, that's extraordinarily powerful.",
+    "example": "Bose wants to sell headphones. Using Amazon DSP, they target users who browsed noise-cancelling headphones on Amazon but didn't purchase, plus users who bought a Sony headphone (competitor conquest).",
+    "related": [
+      "dsp",
+      "rtb",
+      "first-party-data",
+      "retargeting"
+    ]
+  },
+  {
+    "id": "trafficking",
+    "name": "Trafficking",
+    "abbr": "",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "The process of setting up, configuring, and sending ad campaigns live in an ad server or DSP.",
+    "definition": "Ad trafficking is the hands-on operational work that makes a campaign actually run. A trafficker takes the creative assets, targeting instructions, and delivery rules from a media plan and builds them inside the ad server (CM360) or DSP (DV360, Amazon DSP). This includes creating placements, uploading creatives, setting budgets, applying targeting, configuring frequency caps, and generating ad tags.",
+    "whyItMatters": "Trafficking is where strategy meets execution. A mistake in trafficking — wrong landing URL, incorrect dates, wrong creative assigned — means the campaign either doesn't run or runs incorrectly.",
+    "example": "A brand campaign has 3 creative sizes in two versions (A and B for A/B testing), targeting 5 different audiences, running across 8 publishers, for 4 weeks. The trafficker must: create ad slots, upload 6 creatives, assign creatives, set 50/50 rotation, apply frequency caps, set start/end dates, and distribute ad tags.",
+    "related": [
+      "cm360",
+      "ad-server",
+      "ad-tag",
+      "creative-rotation",
+      "frequency-capping"
+    ]
+  },
+  {
+    "id": "ad-tag",
+    "name": "Ad Tag",
+    "abbr": "",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "A snippet of HTML or JavaScript code that publishers place on their site to request and display ads from an ad server.",
+    "definition": "An ad tag is the connector between a publisher's website and an ad server. It's a small piece of code (HTML, JavaScript, or a URL) that the publisher places in their page's code where an ad should appear. When a user loads the page, the tag fires a request to the ad server, which responds with the appropriate ad creative.",
+    "whyItMatters": "Ad tags are how the real-time plumbing works. Understanding the different tag types — standard tags, click trackers, impression trackers, VAST tags for video — is fundamental AdOps knowledge.",
+    "example": "A publisher adds an ad tag from CM360 to their homepage banner position. Every time a user loads the homepage, this script fires, requests an ad from CM360, and displays it in the banner. CM360 logs the impression, attributes it to the right campaign, and tracks any clicks.",
+    "related": [
+      "ad-server",
+      "cm360",
+      "trafficking",
+      "vast",
+      "impression"
+    ]
+  },
+  {
+    "id": "vast",
+    "name": "VAST — Video Ad Serving Template",
+    "abbr": "Video Ad Serving Template",
+    "category": "ad-serving",
+    "difficulty": "advanced",
+    "short": "An XML-based standard from the IAB that defines how video ads are served and tracked across different video players.",
+    "definition": "VAST (Video Ad Serving Template) is the universal language of video advertising. It's an XML file that tells a video player everything it needs to know about an ad: where the video file is, how long it is, what happens when someone clicks, how to track views, and more. VAST works across any video player on any platform.",
+    "example": "A YouTube channel's video player supports VAST. An advertiser's 30-second pre-roll ad is stored as a VAST tag: \"Here's the video file URL, here's what to do after 5 seconds (show skip button), here's the click-through URL, here's the impression tracker.\"",
+    "related": [
+      "ad-tag",
+      "video-ad",
+      "ad-server",
+      "trafficking"
+    ]
+  },
+  {
+    "id": "impression",
+    "name": "Impression",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "A single instance of an ad being displayed to a user on a webpage or app.",
+    "definition": "An impression is counted every time an ad is loaded and displayed on a page or app. It's the most fundamental unit of digital advertising measurement. If 10,000 people each see your ad once, that's 10,000 impressions. If 1,000 people each see it 10 times, that's also 10,000 impressions.",
+    "whyItMatters": "Impressions are the currency of digital advertising. But not all impressions are equal — an impression that nobody actually saw (below the fold, loaded too fast) is less valuable than one in a premium position that someone spent time looking at.",
+    "example": "Your campaign ran for one week and CM360 recorded 2.3 million impressions. This means your ad was loaded and displayed 2.3 million times across all the publisher sites in your campaign. If your CPM was $4, you spent $9,200.",
+    "related": [
+      "cpm",
+      "viewability",
+      "reach",
+      "frequency",
+      "ad-server"
+    ]
+  },
+  {
+    "id": "cpm",
+    "name": "CPM — Cost Per Mille",
+    "abbr": "Cost Per Mille (Cost per Thousand Impressions)",
+    "aka": "Cost Per Thousand, CPT",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The price paid for every 1,000 ad impressions. The standard pricing model for display and video advertising.",
+    "definition": "CPM stands for Cost Per Mille, where \"mille\" is Latin for thousand. It's the most common pricing model in display and video advertising. If a campaign has a $5 CPM, you pay $5 for every 1,000 times your ad is shown.",
+    "whyItMatters": "CPM is the baseline metric for understanding how efficiently you're buying reach. A lower CPM doesn't always mean better value — a $2 CPM from a low-quality network vs. a $20 CPM from premium inventory can deliver very different results.",
+    "example": "You're running a brand awareness campaign with a $10,000 budget at a $5 CPM. You'll receive 2 million impressions ($10,000 ÷ $5 × 1,000). If the same budget on a premium publisher costs $25 CPM, you get 400,000 impressions — but those readers might be far more valuable.",
+    "related": [
+      "cpc",
+      "cpa",
+      "impression",
+      "floor-price",
+      "rtb"
+    ]
+  },
+  {
+    "id": "cpc",
+    "name": "CPC — Cost Per Click",
+    "abbr": "Cost Per Click",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The price paid each time a user clicks on an ad. Common in search and performance-driven display campaigns.",
+    "definition": "CPC (Cost Per Click) is a pricing model where you only pay when someone actually clicks on your ad — not just when it's shown. It shifts the risk from advertiser to publisher. CPC is dominant in Google Search advertising and is also used in some display and social campaigns.",
+    "example": "A software company runs Google Search ads bidding £1.50 CPC for the keyword \"project management software\". Their ad shows 10,000 times but only 250 people click (2.5% CTR). The company pays 250 × £1.50 = £375. They don't pay for the 9,750 impressions that didn't generate a click.",
+    "related": [
+      "cpm",
+      "cpa",
+      "ctr",
+      "impression"
+    ]
+  },
+  {
+    "id": "cpa",
+    "name": "CPA — Cost Per Acquisition",
+    "abbr": "Cost Per Acquisition",
+    "aka": "Cost Per Action, CPA Goal",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The average cost to acquire one conversion — a purchase, sign-up, lead, or other desired action.",
+    "definition": "CPA (Cost Per Acquisition or Cost Per Action) measures how much you're paying for each valuable conversion your campaign generates. CPA = Total Spend ÷ Total Conversions. It's the ultimate performance metric for direct-response campaigns.",
+    "whyItMatters": "CPA tells you whether your advertising is profitable. If you sell a product with $100 profit margin and your CPA is $30, you're making $70 profit per customer. If your CPA rises to $110, every customer is costing you money.",
+    "example": "A travel company spends $5,000 on a campaign and gets 25 holiday bookings. CPA = $5,000 ÷ 25 = $200 per booking. If each booking generates $800 in revenue, that's a healthy 4:1 return.",
+    "related": [
+      "cpm",
+      "cpc",
+      "ctr",
+      "attribution",
+      "conversion"
+    ]
+  },
+  {
+    "id": "ctr",
+    "name": "CTR — Click-Through Rate",
+    "abbr": "Click-Through Rate",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The percentage of ad impressions that result in a click. Calculated as (Clicks ÷ Impressions) × 100.",
+    "definition": "CTR measures how compelling your ad is — what proportion of people who see it actually click on it. It's calculated as (Total Clicks ÷ Total Impressions) × 100. Average display CTRs are very low — typically 0.05% to 0.1%.",
+    "example": "Your banner ad gets 500,000 impressions and 350 clicks. CTR = (350 ÷ 500,000) × 100 = 0.07%. This is actually pretty normal for display advertising. For search ads, CTRs of 2–5% are common, because people are actively searching for the product.",
+    "related": [
+      "cpc",
+      "impression",
+      "creative-rotation",
+      "ab-testing"
+    ]
+  },
+  {
+    "id": "viewability",
+    "name": "Viewability",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "A standard that measures whether an ad was actually in view on a user's screen long enough to potentially be seen.",
+    "definition": "Viewability measures whether an ad actually had a chance to be seen by a human. The IAB standard is: a display ad is \"viewable\" if at least 50% of its pixels are in the browser viewport for at least 1 continuous second. Just because an ad was \"served\" doesn't mean a human ever saw it.",
+    "whyItMatters": "Industry research suggests 50%+ of display ads are never actually seen. You could be paying for impressions that nobody viewed. Brands increasingly require minimum viewability thresholds (usually 60%+) as a campaign quality standard.",
+    "example": "You buy a 300×250 banner that loads at the very bottom of a long article page. The user reads the headline and leaves without scrolling. Your ad was \"served\" — CM360 recorded an impression — but it was never viewable. Viewability vendors like IAS, MOAT, or DoubleVerify measure this.",
+    "related": [
+      "impression",
+      "brand-safety",
+      "ias",
+      "moat",
+      "double-verify"
+    ]
+  },
+  {
+    "id": "brand-safety",
+    "name": "Brand Safety",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "The practice of ensuring ads do not appear next to content that could damage the brand's reputation.",
+    "definition": "Brand safety is about protecting your brand from appearing in the wrong context online. Nobody wants to see a children's toy ad appearing next to extremist content, or a bank's ad next to articles about financial fraud. Brand safety technologies scan the content of web pages before serving an ad and block placements on unsafe content.",
+    "whyItMatters": "A single viral screenshot of a major brand's ad next to harmful content can cause enormous reputational damage. Brand safety is non-negotiable for any professional programmatic campaign.",
+    "example": "A family airline uses IAS brand safety tools to block their ads from appearing on pages containing keywords related to violence or tragedy. When an RTB bid request comes in, IAS scans the page URL and content in milliseconds. If flagged, the DSP is told not to bid.",
+    "related": [
+      "viewability",
+      "ias",
+      "double-verify",
+      "ad-fraud",
+      "contextual-targeting"
+    ]
+  },
+  {
+    "id": "frequency-capping",
+    "name": "Frequency Capping",
+    "abbr": "",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "A setting that limits how many times the same ad is shown to the same user within a specific time period.",
+    "definition": "Frequency capping prevents ad fatigue — the point where a user has seen your ad so many times it becomes annoying rather than persuasive. You can cap frequency at different levels: per day, per week, per campaign lifetime. Caps are typically applied in your ad server (CM360) or DSP.",
+    "whyItMatters": "Research consistently shows that ad effectiveness peaks after 3–5 exposures and then declines. Over-frequency wastes budget and damages brand perception.",
+    "example": "A retargeting campaign shows an abandoned cart reminder. After the 3rd time a user sees this ad without converting, they're excluded from further targeting for 7 days.",
+    "related": [
+      "trafficking",
+      "reach",
+      "frequency",
+      "retargeting",
+      "ad-server"
+    ]
+  },
+  {
+    "id": "reach",
+    "name": "Reach",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The total number of unique users exposed to an ad or campaign at least once.",
+    "definition": "Reach is the unique headcount of your campaign — how many different people saw your ad at least once. This is different from impressions, which count every instance. If one person sees your ad 10 times, that's 10 impressions but 1 person reached.",
+    "example": "Your campaign delivered 10 million impressions over two weeks. But deduplicated, you actually reached 2.5 million unique users — each with an average frequency of 4 exposures.",
+    "related": [
+      "frequency",
+      "impression",
+      "frequency-capping",
+      "cpm"
+    ]
+  },
+  {
+    "id": "frequency",
+    "name": "Frequency",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The average number of times a unique user has been exposed to an ad during a campaign.",
+    "definition": "Frequency is the companion metric to reach. It tells you how many times, on average, each unique user saw your ad. Frequency = Total Impressions ÷ Unique Reach. Finding the right frequency is a balance: too low and the message doesn't stick; too high and you risk ad fatigue.",
+    "example": "Your campaign ran for two weeks: 5 million total impressions, 1 million unique users reached. Average frequency = 5 million ÷ 1 million = 5 times per user. A frequency of 3–7 is often considered healthy for brand awareness.",
+    "related": [
+      "reach",
+      "frequency-capping",
+      "impression"
+    ]
+  },
+  {
+    "id": "first-party-data",
+    "name": "First-Party Data",
+    "abbr": "1P Data",
+    "category": "audience",
+    "difficulty": "beginner",
+    "short": "Data collected directly from your own customers and audiences, owned and controlled by your brand.",
+    "definition": "First-party data (1P data) is information you collected yourself, directly from your users — through your website, app, CRM, email list, loyalty programme, or customer surveys. In an era of cookie deprecation and privacy regulations, first-party data has become the most valuable and durable targeting asset a brand can own.",
+    "whyItMatters": "Third-party data is becoming less reliable and harder to use due to privacy regulations and the end of the third-party cookie. First-party data has no such problems — it's yours, it's consented, and it's directly tied to your actual customers.",
+    "example": "A retailer has 2 million email subscribers who opted in on their website. This email list is first-party data. They can upload it to DV360 or Amazon DSP as a \"Customer Match\" audience to retarget these known customers with personalised ads across the web.",
+    "related": [
+      "third-party-data",
+      "second-party-data",
+      "cdp",
+      "dmp",
+      "retargeting"
+    ]
+  },
+  {
+    "id": "third-party-data",
+    "name": "Third-Party Data",
+    "abbr": "3P Data",
+    "category": "audience",
+    "difficulty": "intermediate",
+    "short": "Audience data collected by external companies (data brokers) and sold to advertisers for targeting purposes.",
+    "definition": "Third-party data is audience data collected by companies that have no direct relationship with either you or your customers. Data brokers aggregate data from thousands of sources to build audience profiles. These segments are sold to advertisers for targeting.",
+    "whyItMatters": "Third-party data is under pressure: GDPR, the end of third-party cookies, and Apple's tracking restrictions are making 3P data less reliable. Many brands are shifting toward first-party data strategies.",
+    "example": "A bank wants to target people likely to switch mortgages. They buy a \"Homeowners Considering Remortgage\" segment from a data provider. The bank loads this segment into their DSP and targets those people with mortgage product ads.",
+    "related": [
+      "first-party-data",
+      "second-party-data",
+      "dmp",
+      "cookie",
+      "audience-segment"
+    ]
+  },
+  {
+    "id": "second-party-data",
+    "name": "Second-Party Data",
+    "abbr": "2P Data",
+    "category": "audience",
+    "difficulty": "intermediate",
+    "short": "Someone else's first-party data, shared directly with you through a partnership or data deal.",
+    "definition": "Second-party data is first-party data from another company that you access through a direct relationship — not a public data marketplace. This is more trustworthy than third-party data because its source is known and consented.",
+    "example": "A ski equipment brand partners with a ski resort. The resort shares anonymised data about guests who booked ski holidays in the last year. The ski brand uses this to target confirmed skiers with ads for new ski equipment.",
+    "related": [
+      "first-party-data",
+      "third-party-data",
+      "audience-segment"
+    ]
+  },
+  {
+    "id": "cookie",
+    "name": "Cookie",
+    "abbr": "",
+    "aka": "Browser Cookie, Tracking Cookie, Third-Party Cookie",
+    "category": "tech",
+    "difficulty": "beginner",
+    "short": "A small text file stored on a user's browser that tracks their browsing behaviour and enables ad targeting and frequency capping.",
+    "definition": "A cookie is a tiny text file placed on a user's browser by a website. In advertising, cookies enable the tracking of user behaviour across the web — which sites they've visited, what products they've looked at, which ads they've seen. This makes personalised targeting, retargeting, frequency capping, and cross-site attribution possible.",
+    "whyItMatters": "Third-party cookies (set by ad tech companies across different sites) are what power most programmatic targeting. As they disappear, the industry is adapting with alternatives like first-party data, contextual targeting, and privacy-preserving APIs.",
+    "example": "You visit a trainer website and look at running shoes. The site drops a cookie from their retargeting partner. Two days later, you visit a news website. The site reads that cookie, recognises you as someone who viewed running shoes, and serves you a retargeting ad for those exact trainers.",
+    "related": [
+      "retargeting",
+      "first-party-data",
+      "third-party-data",
+      "frequency-capping"
+    ]
+  },
+  {
+    "id": "retargeting",
+    "name": "Retargeting / Remarketing",
+    "abbr": "",
+    "aka": "Remarketing, Retargeting",
+    "category": "audience",
+    "difficulty": "beginner",
+    "short": "Showing ads to users who have previously visited your website or interacted with your brand.",
+    "definition": "Retargeting (also called remarketing) is the practice of showing ads to people who have already shown interest in your brand — visited your website, viewed a product, added to cart but didn't buy, or engaged with your social media.",
+    "whyItMatters": "Retargeting typically has much higher conversion rates than prospecting because these users already know your brand. Someone who added a product to cart and didn't buy is dramatically more likely to convert than someone who's never heard of you.",
+    "example": "A furniture store installs a Meta Pixel on their website. A user browses a sofa page for 3 minutes but doesn't buy. Over the next week, that user sees the exact sofa in ads on Instagram, Facebook, and across display networks.",
+    "related": [
+      "cookie",
+      "first-party-data",
+      "audience-segment",
+      "prospecting",
+      "frequency-capping"
+    ]
+  },
+  {
+    "id": "lookalike",
+    "name": "Lookalike Audience",
+    "abbr": "",
+    "aka": "Similar Audience, LAL",
+    "category": "audience",
+    "difficulty": "intermediate",
+    "short": "A targeting audience algorithmically built to match the characteristics of your existing best customers.",
+    "definition": "A lookalike (or similar) audience is created by a platform's algorithm. You provide a \"seed\" audience — your existing customers, top purchasers, or email list. The algorithm analyses those people's attributes and browsing behaviour, then finds millions of other users who are statistically similar.",
+    "whyItMatters": "Lookalike targeting is one of the most effective prospecting tools in digital advertising. It's based on real customer data rather than guesswork.",
+    "example": "A SaaS startup uploads a list of their 500 paying customers to Google's Customer Match. Google identifies common characteristics of these people. Google then builds a \"similar audience\" of 2 million people who share those characteristics.",
+    "related": [
+      "first-party-data",
+      "audience-segment",
+      "retargeting",
+      "prospecting"
+    ]
+  },
+  {
+    "id": "audience-segment",
+    "name": "Audience Segment",
+    "abbr": "",
+    "category": "audience",
+    "difficulty": "beginner",
+    "short": "A defined group of users who share specific characteristics, behaviours, or interests, used for ad targeting.",
+    "definition": "An audience segment is a group of users bundled together based on shared attributes that make them relevant for a specific ad campaign. Segments can be based on demographics (age, gender, income), interests (cooking, sports, finance), or behaviour.",
+    "example": "An insurance company builds four audience segments: \"New Homeowners\", \"Young Families\", \"High-Income Renters\", and \"Car Owners in London\". Each segment gets a different creative message and separate budget allocation.",
+    "related": [
+      "dmp",
+      "cdp",
+      "targeting",
+      "first-party-data",
+      "third-party-data"
+    ]
+  },
+  {
+    "id": "contextual-targeting",
+    "name": "Contextual Targeting",
+    "abbr": "",
+    "category": "audience",
+    "difficulty": "beginner",
+    "short": "Serving ads based on the content of the page being viewed, rather than user identity or cookies.",
+    "definition": "Contextual targeting places ads based on what the page is about, not who the viewer is. A page about \"marathon training\" receives sports and fitness ads. Contextual targeting doesn't use cookies or personal data. As third-party cookies disappear, contextual targeting is experiencing a major renaissance.",
+    "whyItMatters": "Contextual targeting is privacy-safe (no personal data needed), brand-safe (your ad appears alongside relevant content), and still effective.",
+    "example": "A coffee brand uses contextual targeting to appear only on pages about \"morning routines\", \"productivity\", and \"working from home\". They don't track individual users at all.",
+    "related": [
+      "brand-safety",
+      "third-party-data",
+      "audience-segment",
+      "cookie"
+    ]
+  },
+  {
+    "id": "geo-targeting",
+    "name": "Geo-Targeting",
+    "abbr": "",
+    "category": "audience",
+    "difficulty": "beginner",
+    "short": "Delivering ads to users based on their geographic location — country, city, postcode, or radius.",
+    "definition": "Geo-targeting restricts ad delivery to users within a specific geographic area. It can be as broad as \"all of the UK\" or as precise as \"within 2 miles of this specific restaurant.\" Location data comes from IP addresses (less precise), GPS coordinates from mobile apps (very precise), or declared location from user profiles.",
+    "example": "A pizza delivery chain in Dubai runs display ads only to users currently within a 5km radius of their three locations, between 11am and 11pm. Users inside the delivery zone see \"Order now, 30-minute delivery guaranteed\" — tailored to their exact distance.",
+    "related": [
+      "dayparting",
+      "audience-segment",
+      "mobile-advertising"
+    ]
+  },
+  {
+    "id": "dayparting",
+    "name": "Dayparting",
+    "abbr": "",
+    "aka": "Ad Scheduling",
+    "category": "ad-serving",
+    "difficulty": "intermediate",
+    "short": "Scheduling ads to run only during specific hours of the day or days of the week.",
+    "definition": "Dayparting lets you control when your ads run. If your product is most relevant at certain times — a breakfast cereal at 7–9am, a nightclub on Friday evenings, a Monday morning productivity app — you can focus your budget on those windows.",
+    "example": "A lunch delivery service in Dubai sets dayparting rules: 100% of budget runs between 10:30am–1:30pm, Monday to Saturday. Outside these hours, the ads pause. This prevents wasting budget at 2am when no deliveries are available.",
+    "related": [
+      "geo-targeting",
+      "frequency-capping",
+      "trafficking"
+    ]
+  },
+  {
+    "id": "ad-fraud",
+    "name": "Ad Fraud",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "Fraudulent activity designed to generate fake impressions, clicks, or conversions to steal advertising budget.",
+    "definition": "Ad fraud is a multi-billion dollar problem where bad actors use bots, malware, and fake websites to generate fraudulent ad impressions, clicks, or conversions. Types include Invalid Traffic (IVT), domain spoofing, click fraud, and ad stacking.",
+    "whyItMatters": "Industry estimates suggest 20–40% of programmatic ad traffic has some form of fraud. An advertiser could be spending a significant chunk of their budget on impressions that no human ever sees.",
+    "example": "A fraudster sets up a network of bots that visit thousands of websites simulating human browsing behaviour. These bots \"view\" ads, trigger impressions, and even click on them. Publishers collecting CPM and CPC revenue from advertisers whose DSPs couldn't distinguish the bot traffic from real users.",
+    "related": [
+      "ias",
+      "double-verify",
+      "viewability",
+      "brand-safety",
+      "ivt"
+    ]
+  },
+  {
+    "id": "ias",
+    "name": "IAS — Integral Ad Science",
+    "abbr": "Integral Ad Science",
+    "category": "tech",
+    "difficulty": "intermediate",
+    "short": "A leading ad verification company that measures viewability, brand safety, ad fraud, and audience quality.",
+    "definition": "Integral Ad Science (IAS) is one of the \"big three\" ad verification platforms alongside DoubleVerify and MOAT. IAS's technology integrates with ad servers and DSPs to measure whether impressions were viewable, appeared in brand-safe environments, and were seen by real humans.",
+    "example": "A global bank runs a programmatic campaign and applies IAS brand safety segments to their DV360 campaigns. Post-campaign, IAS delivers a report showing: 72% viewability rate, 0.3% IVT, 98.5% brand-safe impressions.",
+    "related": [
+      "double-verify",
+      "moat",
+      "viewability",
+      "brand-safety",
+      "ad-fraud"
+    ]
+  },
+  {
+    "id": "double-verify",
+    "name": "DoubleVerify",
+    "abbr": "DV",
+    "category": "tech",
+    "difficulty": "intermediate",
+    "short": "A digital media quality verification platform measuring brand safety, fraud, viewability, and attention.",
+    "definition": "DoubleVerify (DV) is a major ad verification and measurement platform. It integrates with DSPs and ad servers to provide real-time quality signals that protect advertisers from brand risk, fraud, and waste. DoubleVerify is particularly strong in attention measurement.",
+    "example": "A CPG brand requires all impressions to meet DoubleVerify's \"Authentic Impressions\" standard — meaning they must be viewable, fraud-free, and brand-safe simultaneously. Their DSP integrates with DoubleVerify's pre-bid blocking, rejecting low-quality bid requests in real-time.",
+    "related": [
+      "ias",
+      "moat",
+      "viewability",
+      "brand-safety",
+      "ad-fraud"
+    ]
+  },
+  {
+    "id": "attribution",
+    "name": "Attribution",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "advanced",
+    "short": "The process of assigning credit to marketing touchpoints for contributing to a conversion.",
+    "definition": "Attribution is one of the most complex problems in digital marketing. When a customer makes a purchase, they may have seen a YouTube ad, clicked a Google search ad, and received an email before converting. Attribution models decide which touchpoint(s) get credit for that conversion.",
+    "whyItMatters": "Attribution directly affects how you allocate budget. If you're using Last Click attribution, display advertising will always look bad — users rarely click display ads as the final step before purchase.",
+    "example": "A user's journey: sees a display ad Monday → searches Google Thursday → opens an email Friday → purchases Saturday. Last-click gives 100% credit to email. First-click gives it all to display. Linear gives each touchpoint 25% credit.",
+    "related": [
+      "cpa",
+      "ctr",
+      "conversion",
+      "view-through-attribution"
+    ]
+  },
+  {
+    "id": "creative-rotation",
+    "name": "Creative Rotation",
+    "abbr": "",
+    "category": "ad-serving",
+    "difficulty": "intermediate",
+    "short": "The method by which multiple ad creatives are distributed across impressions within the same placement.",
+    "definition": "Creative rotation determines which creative is shown when a placement has multiple ads assigned. Options include: Even (each creative gets equal distribution), Sequential (show A, then B, then C in order), Weighted (give A 60% of traffic, B 40%), and Optimised (automatically allocate more to the better-performing creative).",
+    "example": "A telecom brand has three banner variations: Version A (camera), Version B (battery), Version C (design). They set up even rotation initially. After one week, CM360 data shows Version B has 40% higher CTR. They switch to optimised rotation, which automatically gives Version B 60% of impressions.",
+    "related": [
+      "ab-testing",
+      "trafficking",
+      "ad-server",
+      "cm360"
+    ]
+  },
+  {
+    "id": "ab-testing",
+    "name": "A/B Testing",
+    "abbr": "",
+    "aka": "Split Testing",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "Running two variations of an ad, landing page, or campaign setup simultaneously to determine which performs better.",
+    "definition": "A/B testing (also called split testing) is the practice of running two (or more) versions of something simultaneously and measuring which performs better. In advertising, you might A/B test different headlines, images, calls to action, landing pages, or targeting approaches.",
+    "example": "An insurance brand A/B tests two ad headlines: Version A: \"Get insured in 3 minutes\" vs Version B: \"Join 2 million happy customers.\" After 100,000 impressions each, Version A shows a 0.12% CTR vs Version B's 0.07% CTR. Version A wins.",
+    "related": [
+      "creative-rotation",
+      "ctr",
+      "trafficking"
+    ]
+  },
+  {
+    "id": "ctv",
+    "name": "CTV — Connected TV",
+    "abbr": "Connected TV",
+    "category": "formats",
+    "difficulty": "intermediate",
+    "short": "Television content delivered via the internet on smart TVs, streaming devices, and gaming consoles.",
+    "definition": "Connected TV (CTV) refers to any television that's connected to the internet and can stream digital content — smart TVs (Samsung, LG), streaming sticks (Firestick, Chromecast), gaming consoles (PlayStation, Xbox), and set-top boxes (Apple TV, Roku). CTV advertising runs within streaming content — essentially TV advertising with digital targeting precision.",
+    "whyItMatters": "CTV combines the impact of TV (large screen, high attention, full-screen video) with digital targeting and measurement. You can target a specific household demographic watching a streaming show.",
+    "example": "A car brand targets households earning $100k+ who stream sports or business news content on smart TVs in major cities. Their 30-second ad runs as a non-skippable mid-roll. Completion rate: 95% (nobody can skip it).",
+    "related": [
+      "ott",
+      "video-ad",
+      "programmatic"
+    ]
+  },
+  {
+    "id": "ott",
+    "name": "OTT — Over-the-Top",
+    "abbr": "Over-the-Top",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "Content delivered directly to viewers over the internet, bypassing traditional cable or satellite TV providers.",
+    "definition": "OTT (Over-the-Top) refers to streaming video content delivered directly via the internet, bypassing traditional cable or broadcast infrastructure. Netflix, Disney+, Amazon Prime Video, Hulu, and BVOD services are all OTT services.",
+    "example": "A user watches a TV show on Hulu via their smart TV. They see a non-skippable 15-second ad for a food delivery service. This is an OTT ad (Hulu is an OTT service) delivered on a CTV device (their smart TV).",
+    "related": [
+      "ctv",
+      "video-ad",
+      "programmatic"
+    ]
+  },
+  {
+    "id": "video-ad",
+    "name": "Video Advertising",
+    "abbr": "",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "Ads delivered in video format — pre-roll, mid-roll, post-roll, bumper ads, and outstream video.",
+    "definition": "Video advertising encompasses all ad formats delivered as video. In-stream ads (pre-roll, mid-roll, post-roll) appear within video content. Outstream ads play in article pages outside of a video player. Bumper ads are 6-second non-skippable formats. Connected TV ads are full-screen, TV-style non-skippable video.",
+    "example": "A beauty brand runs a multi-format video campaign: 30-second pre-roll on YouTube, 6-second bumper ads, outstream video on news websites, and 30-second non-skippable CTV ads. CPMs range from $8 (outstream) to $45 (premium CTV).",
+    "related": [
+      "ctv",
+      "ott",
+      "vast",
+      "youtube-ads"
+    ]
+  },
+  {
+    "id": "native-ad",
+    "name": "Native Advertising",
+    "abbr": "",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "Ads designed to blend in with the editorial look and feel of the platform where they appear.",
+    "definition": "Native advertising is paid content that matches the form and function of the medium it appears in. Instead of a traditional banner, a native ad looks like a recommended article on a news site, or a promoted post in a social feed.",
+    "example": "You're reading a news article on CNN and at the bottom you see \"recommended story\" cards. One says \"SPONSORED: The 5 Savings Accounts Earning 5% Interest\" — that's a native ad from a bank. Native ads typically have 3–5x higher CTRs than standard display banners.",
+    "related": [
+      "display-ad",
+      "contextual-targeting",
+      "programmatic"
+    ]
+  },
+  {
+    "id": "dooh",
+    "name": "DOOH — Digital Out-of-Home",
+    "abbr": "Digital Out-of-Home",
+    "category": "formats",
+    "difficulty": "intermediate",
+    "short": "Digital advertising displayed in public spaces — digital billboards, transit screens, shopping centres, and airports.",
+    "definition": "DOOH is the programmatic evolution of traditional outdoor advertising. Digital screens that can display different creative at different times, for different audiences. Programmatic DOOH means buying these screens in real-time auctions, just like digital display.",
+    "whyItMatters": "DOOH is the bridge between digital advertising's precision and the mass reach of out-of-home. A campaign can automatically trigger: \"Show umbrella ads when it's raining at this location.\"",
+    "example": "McDonald's uses programmatic DOOH to dynamically serve menu ads based on: weather (promote hot drinks in cold weather), time of day (breakfast items before 11am), and location (ads near a specific restaurant show that location's offers).",
+    "related": [
+      "programmatic",
+      "geo-targeting",
+      "dayparting"
+    ]
+  },
+  {
+    "id": "display-ad",
+    "name": "Display Advertising",
+    "abbr": "",
+    "aka": "Banner Advertising, Display Banners",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "Visual banner ads (images, animations, HTML5) shown on websites and apps across the internet.",
+    "definition": "Display advertising refers to visual banner ads shown on websites and apps. They come in standard IAB sizes: the classic 300×250 \"medium rectangle\", the 728×90 \"leaderboard\", and 160×600 \"wide skyscraper\". Display ads can be static images, animated GIFs, HTML5 interactive ads, or rich media.",
+    "example": "You've just been looking at flights to Tokyo. For the next two weeks, wherever you go on the internet, you see a 300×250 banner from that travel company showing Tokyo flight deals. That's retargeted display advertising.",
+    "related": [
+      "retargeting",
+      "cpm",
+      "html5-ad"
+    ]
+  },
+  {
+    "id": "prospecting",
+    "name": "Prospecting",
+    "abbr": "",
+    "category": "audience",
+    "difficulty": "beginner",
+    "short": "Targeting new audiences who have never heard of your brand, with the goal of acquiring new customers.",
+    "definition": "Prospecting is the advertising strategy focused on finding new customers — people who don't know your brand yet. Unlike retargeting (showing ads to known visitors), prospecting casts a wider net using audience data, lookalike modelling, or contextual signals.",
+    "example": "A new protein supplement brand has exhausted their retargeting pool. For prospecting, they build three strategies: 1) Lookalike audience based on existing customers, 2) Third-party \"fitness enthusiasts\" segment, 3) Contextual targeting on fitness and nutrition content.",
+    "related": [
+      "retargeting",
+      "lookalike",
+      "audience-segment",
+      "contextual-targeting"
+    ]
+  },
+  {
+    "id": "io",
+    "name": "IO — Insertion Order",
+    "abbr": "Insertion Order",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "A formal contract between an advertiser and publisher confirming the details of a direct ad buy.",
+    "definition": "An Insertion Order (IO) is the official purchase order in direct digital advertising deals. When a brand or agency buys advertising directly from a publisher, the IO documents the agreement: campaign dates, ad sizes, targeting, CPM rates, total spend commitment, cancellation terms, and creative specifications.",
+    "example": "An agency negotiates a sponsorship with a major newspaper. The IO states: 500×500 custom native unit on homepage, running 1st–31st March, CPD £1,500, total value £46,500. Both agency and publisher sign. The trafficking team then sets up the campaign based on the IO specs.",
+    "related": [
+      "trafficking",
+      "pg-deal",
+      "publisher"
+    ]
+  },
+  {
+    "id": "bid-shading",
+    "name": "Bid Shading",
+    "abbr": "",
+    "category": "programmatic",
+    "difficulty": "advanced",
+    "short": "An algorithm used in first-price auctions to lower winning bids, protecting advertisers from overpaying.",
+    "definition": "Bid shading emerged when programmatic auctions shifted from second-price to first-price (you pay exactly what you bid). Without bid shading, advertisers would systematically overpay. Bid shading algorithms predict the clearing price of an auction and suggest a lower bid — one that will still win but at a more efficient price.",
+    "example": "Without bid shading: your DSP values an impression at $5 and bids $5. You win, but the next highest bid was only $2.50. You overpaid by $2.50. With bid shading: The algorithm predicts the clearing price is around $2.80 and suggests a bid of $3.00. You still win, but pay $2 less.",
+    "related": [
+      "rtb",
+      "cpm",
+      "dsp",
+      "floor-price"
+    ]
+  },
+  {
+    "id": "fill-rate",
+    "name": "Fill Rate",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "The percentage of ad requests that result in an ad being successfully served.",
+    "definition": "Fill rate is a publisher metric that measures how often their ad slots actually get filled with an ad. Fill Rate = (Ads Served ÷ Ad Requests) × 100. A 100% fill rate means every page load with an ad slot resulted in a served ad.",
+    "example": "A blog's homepage ad slot has 100,000 requests in a month. AdSense fills 78,000; the SSP fills 15,000 more. 7,000 remain unfilled — no buyer met the floor price. Fill rate = 93%. The publisher earns nothing on those 7,000 unfilled impressions.",
+    "related": [
+      "floor-price",
+      "ssp",
+      "impression",
+      "waterfall"
+    ]
+  },
+  {
+    "id": "win-rate",
+    "name": "Win Rate",
+    "abbr": "",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "The percentage of bid requests that a DSP wins in programmatic auctions.",
+    "definition": "Win rate is an advertiser/DSP metric measuring how often a bid successfully wins an impression. Win Rate = (Impressions Won ÷ Bids Placed) × 100. Win rate helps diagnose campaign delivery issues.",
+    "example": "A DSP places 2 million bids and wins 140,000 impressions. Win rate = 7%. The campaign manager notices the budget isn't being spent fast enough. Win rate on premium PMPs is only 2% (bids too low). They increase the PMP bid floors.",
+    "related": [
+      "rtb",
+      "bid-shading",
+      "dsp",
+      "floor-price"
+    ]
+  },
+  {
+    "id": "roas",
+    "name": "ROAS — Return on Ad Spend",
+    "abbr": "Return on Ad Spend",
+    "aka": "Revenue per Ad Dollar",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The revenue generated for every dollar spent on advertising. A core profitability metric.",
+    "definition": "ROAS (Return on Ad Spend) measures how much revenue your ads generate per dollar spent. ROAS = Revenue from Ads ÷ Ad Spend. A ROAS of 4 means you earn $4 for every $1 you spend on advertising. It's the most direct measure of whether a campaign is profitable.",
+    "whyItMatters": "ROAS is the number that tells you if your advertising is actually making money. It's different from ROI (which factors in all costs) — ROAS looks purely at the relationship between ad spend and the revenue it generates.",
+    "example": "An e-commerce brand spends $10,000 on a programmatic campaign. The campaign drives $45,000 in tracked sales. ROAS = $45,000 ÷ $10,000 = 4.5x. The brand earns $4.50 for every $1 spent. If their profit margins require a minimum 3x ROAS to break even on advertising, this campaign is profitable.",
+    "related": [
+      "cpa",
+      "cpm",
+      "attribution",
+      "conversion"
+    ]
+  },
+  {
+    "id": "ecpm",
+    "name": "eCPM — Effective Cost Per Mille",
+    "abbr": "Effective Cost Per Mille",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "The actual average revenue earned per thousand ad impressions, calculated across all revenue sources.",
+    "definition": "eCPM (Effective CPM) is a publisher-side metric that measures the actual revenue earned per 1,000 impressions across all monetisation methods. It's calculated as (Total Revenue ÷ Total Impressions) × 1,000. Unlike CPM — which is a price set before the auction — eCPM is a real performance measure calculated after the fact.",
+    "whyItMatters": "Publishers use eCPM to compare the revenue performance of different ad units, traffic sources, or monetisation strategies on a like-for-like basis, regardless of whether they sold on CPM, CPC, or CPA terms.",
+    "example": "A publisher runs three different ad units in a month. The leaderboard earns $2,400 from 800,000 impressions (eCPM = $3.00). The sidebar earns $600 from 500,000 impressions (eCPM = $1.20). The in-content unit earns $3,200 from 400,000 impressions (eCPM = $8.00). Despite fewer impressions, the in-content unit is the most valuable placement.",
+    "related": [
+      "cpm",
+      "fill-rate",
+      "ssp",
+      "impression"
+    ]
+  },
+  {
+    "id": "vcpm",
+    "name": "vCPM — Viewable Cost Per Mille",
+    "abbr": "Viewable Cost Per Mille",
+    "aka": "Cost Per Viewable Impression",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "A pricing model where advertisers only pay for impressions that were actually viewable, not just served.",
+    "definition": "vCPM (Viewable CPM) is a pricing model that only charges advertisers for impressions that met the IAB viewability standard — at least 50% of the ad pixels visible for at least 1 second. It differs from standard CPM, where you pay for every served impression regardless of whether it was ever seen.",
+    "whyItMatters": "vCPM gives advertisers much stronger quality guarantees. You know that every impression you paid for had a genuine chance of being seen. It's more expensive per impression than standard CPM but typically delivers better brand impact.",
+    "example": "An advertiser buys 1 million impressions at $3 CPM = $3,000 total. But post-campaign data shows only 60% were viewable, meaning 400,000 impressions were invisible. Effectively they paid $5 CPM for viewable impressions. Had they bought on vCPM at $4.50, they'd pay the same but only for the 600,000 verified viewable impressions.",
+    "related": [
+      "viewability",
+      "cpm",
+      "brand-safety",
+      "ias"
+    ]
+  },
+  {
+    "id": "ivt",
+    "name": "IVT — Invalid Traffic",
+    "abbr": "Invalid Traffic",
+    "aka": "Ad Fraud Traffic, Bot Traffic",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "Impressions, clicks, or conversions generated by non-human sources — bots, crawlers, or fraudulent activity.",
+    "definition": "Invalid Traffic (IVT) is any ad activity not generated by a real human with genuine interest. The IAB divides IVT into two types: General IVT (GIVT) — known data centre traffic, bots, and crawlers that are relatively easy to identify — and Sophisticated IVT (SIVT) — advanced bot networks designed to mimic human behaviour and evade detection.",
+    "whyItMatters": "IVT directly wastes advertising budget. Every impression, click, or conversion from a bot is money spent on nothing. Industry estimates suggest billions of dollars are lost to IVT globally each year.",
+    "example": "A campaign runs across an open exchange network. Post-campaign, IAS analysis shows 18% of impressions were IVT — mostly from bot farms operating out of data centres, generating fake page loads to earn CPM revenue. The advertiser lost 18% of their budget to fraud without receiving any real audience exposure.",
+    "related": [
+      "ad-fraud",
+      "ias",
+      "double-verify",
+      "viewability",
+      "brand-safety"
+    ]
+  },
+  {
+    "id": "creative-fatigue",
+    "name": "Creative Fatigue",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "beginner",
+    "short": "The drop in ad performance that happens when an audience has seen the same creative too many times.",
+    "definition": "Creative fatigue occurs when a target audience has been exposed to the same ad creative so many times that it stops working. CTRs fall, conversion rates drop, and users may actively ignore or feel annoyed by the ad. It's a natural result of repeated exposure without variation — the brain starts filtering out the familiar stimulus.",
+    "whyItMatters": "Ignoring creative fatigue wastes budget. You're paying for impressions on an audience that has mentally switched off from your message. Monitoring frequency and CTR trends helps identify when to refresh creative.",
+    "example": "A retargeting campaign launches with a strong 0.15% CTR in week one. By week three, CTR has dropped to 0.04%. Frequency data shows users have seen the ad an average of 11 times. The creative is fatigued. The team launches two new variations and resets frequency caps — CTR recovers to 0.12% immediately.",
+    "related": [
+      "frequency-capping",
+      "frequency",
+      "ab-testing",
+      "creative-rotation"
+    ]
+  },
+  {
+    "id": "brand-lift",
+    "name": "Brand Lift",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "A measurement of how much an ad campaign improves brand perception metrics like awareness, recall, or purchase intent.",
+    "definition": "Brand lift measures the impact of advertising on upper-funnel brand metrics — things that can't be tracked with a click or conversion. It works by surveying two groups: people who saw your ads (exposed group) and similar people who didn't (control group). The difference in their responses is the \"lift\" your campaign created.",
+    "whyItMatters": "For brand awareness campaigns, clicks and conversions aren't the right metrics. Brand lift tells you whether your campaign actually changed how people think and feel about your brand.",
+    "example": "A car brand runs a YouTube campaign and commissions a brand lift study through Google. The control group (unexposed) has 22% brand awareness. The exposed group has 31% awareness. The campaign delivered a 9 percentage point lift in brand awareness — a significant result for a single campaign period.",
+    "related": [
+      "viewability",
+      "reach",
+      "frequency",
+      "attribution"
+    ]
+  },
+  {
+    "id": "share-of-voice",
+    "name": "Share of Voice",
+    "abbr": "SOV",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "The percentage of total available ad impressions in a given category or context that a brand owns.",
+    "definition": "Share of Voice (SOV) measures how much of the total advertising landscape a brand occupies compared to its competitors. In digital advertising, it's often measured as the percentage of available impressions in a given category, keyword, or publisher that a brand wins. Higher SOV generally correlates with higher brand awareness and market share.",
+    "example": "In a direct IO deal with a news publisher, a bank buys 60% of all financial services ad slots for one month. Their Share of Voice in that category on that site is 60%. The remaining 40% is split between competitors. This dominance helps them own the finance conversation on that publisher.",
+    "related": [
+      "impression",
+      "reach",
+      "cpm",
+      "brand-lift"
+    ]
+  },
+  {
+    "id": "ad-network",
+    "name": "Ad Network",
+    "abbr": "",
+    "category": "programmatic",
+    "difficulty": "beginner",
+    "short": "A company that aggregates ad inventory from multiple publishers and sells it to advertisers, usually at a mark-up.",
+    "definition": "An ad network sits between publishers and advertisers, bundling up inventory from many different websites and selling it as packages. Unlike ad exchanges (which run real-time auctions), traditional ad networks buy inventory in bulk and resell it at a profit. They often specialise by vertical — a news network, a gaming network, a cooking network.",
+    "whyItMatters": "Ad networks were the original layer of programmatic infrastructure, and many still exist for niche or premium inventory bundles. They're simpler than full programmatic setups but offer less transparency and control.",
+    "example": "A travel brand wants to reach cooking enthusiasts. A culinary ad network bundles inventory from 200 food and recipe websites, sells it as a \"Foodie Package\" at a $6 CPM. The brand gets reach across the category without negotiating with 200 publishers individually.",
+    "related": [
+      "ssp",
+      "dsp",
+      "rtb",
+      "ad-exchange"
+    ]
+  },
+  {
+    "id": "programmatic-direct",
+    "name": "Programmatic Direct",
+    "abbr": "",
+    "aka": "Automated Direct, Programmatic Premium",
+    "category": "programmatic",
+    "difficulty": "intermediate",
+    "short": "Direct deals between advertisers and publishers executed programmatically, combining direct buying with automation benefits.",
+    "definition": "Programmatic direct is an umbrella term for all programmatic deals that involve a direct relationship between a specific buyer and seller — including PG Deals, PMPs, and Preferred Deals. Unlike open auction buying where you're competing with thousands of buyers, programmatic direct deals are negotiated one-to-one and then executed through programmatic pipes.",
+    "whyItMatters": "Programmatic direct gives advertisers the premium inventory access and relationship benefits of direct buying, with the efficiency, targeting, and reporting benefits of programmatic technology.",
+    "example": "A premium fashion brand wants guaranteed placement on Vogue's homepage during fashion week. They negotiate directly with Condé Nast's sales team, agree on pricing and volume, and execute the deal via DV360 as a PG deal. This is programmatic direct — the personal relationship of a direct buy, delivered through programmatic infrastructure.",
+    "related": [
+      "pg-deal",
+      "pmp",
+      "preferred-deal",
+      "rtb"
+    ]
+  },
+  {
+    "id": "open-rtb",
+    "name": "OpenRTB",
+    "abbr": "",
+    "aka": "Open Real-Time Bidding Protocol",
+    "category": "tech",
+    "difficulty": "advanced",
+    "short": "The industry standard protocol for real-time bidding, developed by the IAB to standardise how bid requests and responses work.",
+    "definition": "OpenRTB is a technical protocol (developed by the IAB Tech Lab) that standardises how bid requests and bid responses are formatted and communicated between SSPs and DSPs. Before OpenRTB, every ad exchange had its own proprietary API, forcing DSPs to build custom integrations for each one. OpenRTB created a common language for the entire industry.",
+    "whyItMatters": "OpenRTB is what makes programmatic interoperability possible. Any DSP that supports OpenRTB can theoretically connect to any SSP that supports it — creating the open, competitive marketplace that programmatic advertising is built on.",
+    "example": "When a publisher's SSP sends a bid request to 15 different DSPs, all 15 receive the same JSON-formatted OpenRTB bid request containing the same standardised fields: impression details, user data, site information, floor price. Each DSP responds in the same OpenRTB format. No custom integrations needed.",
+    "related": [
+      "rtb",
+      "dsp",
+      "ssp",
+      "ad-exchange"
+    ]
+  },
+  {
+    "id": "skippable-ad",
+    "name": "Skippable vs Non-Skippable Ads",
+    "abbr": "",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "Video ad formats that either allow viewers to skip after 5 seconds or require them to watch the full ad.",
+    "definition": "Skippable ads (like YouTube TrueView) show a \"Skip Ad\" button after 5 seconds, letting viewers bypass the rest of the ad. Advertisers typically only pay if the viewer watches 30 seconds or the entire ad. Non-skippable ads (6–15 seconds) must be watched in full before content continues. Both serve different strategic purposes.",
+    "whyItMatters": "Skippable ads are great for brand storytelling — you only pay for engaged viewers. Non-skippable ads guarantee full message delivery but risk annoying users if poorly targeted. CTV typically uses non-skippable formats with very high completion rates.",
+    "example": "A car brand runs a 60-second skippable YouTube ad. 30% of viewers skip after 5 seconds. They don't pay for those. 70% watch at least 30 seconds — these are highly engaged viewers. The CPV (cost per view) model means the brand only pays for real engagement, making skippable ads very cost-efficient for awareness.",
+    "related": [
+      "video-ad",
+      "ctv",
+      "cpm",
+      "youtube-ads"
+    ]
+  },
+  {
+    "id": "rewarded-video",
+    "name": "Rewarded Video",
+    "abbr": "",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "A video ad format in mobile apps where users voluntarily watch a full ad in exchange for an in-app reward.",
+    "definition": "Rewarded video is an opt-in ad format primarily used in mobile games and apps. Users choose to watch a full-length video ad (usually 15–30 seconds) in exchange for something valuable — extra lives, game currency, premium content, or other in-app benefits. Because it's opt-in, completion rates are extremely high (often 90%+).",
+    "whyItMatters": "Rewarded video is one of the highest-quality ad formats in mobile. Users actively choose to engage, completion rates dwarf standard video, and brand recall is significantly stronger because the user is in a receptive, motivated mindset.",
+    "example": "In a mobile puzzle game, a player runs out of lives. A prompt appears: \"Watch a 30-second ad to get 5 free lives?\" The player taps yes. They watch a full ad for a food delivery app and receive their lives. The advertiser gets a 100% completion, full-screen, sound-on video impression from a genuinely willing viewer.",
+    "related": [
+      "video-ad",
+      "mobile-advertising",
+      "ctv",
+      "cpm"
+    ]
+  },
+  {
+    "id": "rich-media",
+    "name": "Rich Media",
+    "abbr": "",
+    "category": "formats",
+    "difficulty": "intermediate",
+    "short": "Interactive ad formats that go beyond static images — including expanding banners, video, animations, and interactive elements.",
+    "definition": "Rich media ads are digital ads that include advanced features like video, audio, animation, or interactive elements that users can engage with. Unlike static banner ads, rich media ads can expand, float, include mini-games, polls, or product configurators. They use HTML5 and JavaScript and command higher CPMs due to their stronger impact.",
+    "example": "A car brand creates a rich media banner that shows a static image by default. When a user hovers over it, the ad expands to reveal a 360-degree car interior viewer where they can look around the car's interior. Users can also drag to change the car's colour. This interactive experience drives far stronger brand engagement than a static image.",
+    "related": [
+      "display-ad",
+      "html5-ad",
+      "cpm",
+      "trafficking"
+    ]
+  },
+  {
+    "id": "interstitial",
+    "name": "Interstitial Ad",
+    "abbr": "",
+    "aka": "Full-Screen Ad, Takeover Ad",
+    "category": "formats",
+    "difficulty": "beginner",
+    "short": "A full-screen ad that appears between content pages or during natural transition points in an app or website.",
+    "definition": "An interstitial ad takes over the entire screen at a natural transition point — between game levels, between article pages, or when launching an app. Because they occupy the full viewport, they're impossible to ignore and deliver very high viewability. They're common in mobile apps and gaming.",
+    "whyItMatters": "Interstitials deliver extremely high viewability and recall because there's nothing competing for attention. But they must be used thoughtfully — poorly timed or too-frequent interstitials are one of the most cited reasons users abandon apps.",
+    "example": "A user finishes level 5 of a mobile game. Before level 6 loads, a full-screen 15-second video ad for a snack brand plays. The user can close it after 5 seconds. This is an interstitial — it appears at a logical pause in the experience rather than interrupting active gameplay.",
+    "related": [
+      "video-ad",
+      "rewarded-video",
+      "mobile-advertising",
+      "formats"
+    ]
+  },
+  {
+    "id": "attribution-window",
+    "name": "Attribution Window",
+    "abbr": "",
+    "aka": "Lookback Window, Conversion Window",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "The time period after an ad interaction during which a conversion is credited to that ad.",
+    "definition": "An attribution window (or lookback window) defines how long after someone sees or clicks an ad that a subsequent conversion can be attributed to it. If a user clicks an ad today and buys something 3 weeks later, whether that sale is credited to the ad depends on the attribution window. Common windows are 1-day view, 7-day click, or 28-day click.",
+    "whyItMatters": "Attribution windows directly determine how campaign performance is reported. A longer window inflates conversion numbers; a shorter window underreports them. Comparing campaigns with different attribution windows produces misleading data.",
+    "example": "Two campaigns appear to have identical CPAs of $30. But Campaign A uses a 1-day click window and Campaign B uses a 28-day click window. Campaign B is \"attributing\" many sales that would have happened anyway, or that were influenced by other channels. The apparent equality is misleading.",
+    "related": [
+      "attribution",
+      "cpa",
+      "conversion",
+      "first-party-data"
+    ]
+  },
+  {
+    "id": "cross-device",
+    "name": "Cross-Device Tracking",
+    "abbr": "",
+    "category": "tech",
+    "difficulty": "advanced",
+    "short": "The ability to recognise and connect the same user across multiple devices — phone, tablet, laptop, and TV.",
+    "definition": "Cross-device tracking connects a user's interactions across different devices into a single identity. When someone sees an ad on their phone, researches on their laptop, and buys on their tablet, cross-device tracking lets advertisers measure this full journey. Two main approaches: deterministic matching (using logged-in identity, like Google/Facebook accounts) and probabilistic matching (using statistical signals like IP address, browser data).",
+    "whyItMatters": "Without cross-device tracking, the same person looks like three different people. Attribution is broken, frequency capping fails (the user sees the same ad 5 times on each device), and campaign reach is over-counted.",
+    "example": "A user sees a display ad on their iPhone. They later search Google on their laptop. Then they make a purchase on their iPad. Google's deterministic cross-device graph — connecting all three to the same Gmail account — correctly attributes the sale back to the original display impression on the phone.",
+    "related": [
+      "attribution",
+      "cookie",
+      "first-party-data",
+      "retargeting"
+    ]
+  },
+  {
+    "id": "creative-specs",
+    "name": "Creative Specifications",
+    "abbr": "Creative Specs",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "The technical requirements that ad creatives must meet to run on a specific platform, publisher, or ad format.",
+    "definition": "Creative specs are the technical rules that define exactly what an ad file must look like to be accepted by a publisher or platform. They cover dimensions (width × height in pixels), file format (JPG, PNG, GIF, HTML5, MP4), maximum file size, animation rules (max 15-second loop), and sometimes content requirements (no auto-play audio, no deceptive elements).",
+    "whyItMatters": "Getting creative specs wrong is one of the most common causes of campaign delays. A trafficker can have everything set up perfectly in CM360, but if the creative file is 200KB over the weight limit, the ad won't serve. Understanding specs saves time and prevents last-minute scrambles.",
+    "example": "A publisher's media pack states: 300×250 display, max 200KB, HTML5 or static JPG/PNG, no animation over 15 seconds. The agency's designer sends a beautiful animated HTML5 banner — but at 340KB. The trafficking team catches it and sends it back to be compressed. The campaign is delayed by one day.",
+    "related": [
+      "trafficking",
+      "ad-tag",
+      "vast",
+      "display-ad"
+    ]
+  },
+  {
+    "id": "campaign-flighting",
+    "name": "Campaign Flighting",
+    "abbr": "",
+    "aka": "Flight Dates, Campaign Schedule",
+    "category": "ad-serving",
+    "difficulty": "beginner",
+    "short": "The scheduling of an ad campaign to run during specific date ranges, often in bursts rather than continuously.",
+    "definition": "Campaign flighting refers to the scheduling of when an ad campaign is active. A campaign might run continuously from start to end date, or it might \"flight\" in bursts — heavy spend in week 1, pause in week 2, burst again in week 3. Flighting allows advertisers to align ad spend with business cycles, product launches, or seasonal events.",
+    "example": "A retailer plans a Christmas campaign. Instead of spending evenly across November–December, they flight it: light spend in early November to build awareness, heavy burst on Black Friday week, pause Christmas Eve when buyers have committed, then a burst in the January sales. The same total budget delivers more impact by concentrating it at high-intent moments.",
+    "related": [
+      "trafficking",
+      "dayparting",
+      "frequency-capping",
+      "io"
+    ]
+  },
+  {
+    "id": "click-fraud",
+    "name": "Click Fraud",
+    "abbr": "",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "Fraudulent clicks on ads generated by bots or competitors to drain an advertiser's budget without genuine intent.",
+    "definition": "Click fraud is a specific type of ad fraud where bots, click farms, or sometimes competitors generate fake clicks on ads. In CPC campaigns (like Google Search), every fraudulent click costs the advertiser money without any chance of conversion. In display CPM campaigns, fraudulent clicks inflate CTR data, making campaigns look more effective than they are.",
+    "example": "A small law firm runs Google Search ads at $15 CPC for \"personal injury lawyer\". A competitor's bot script repeatedly clicks the ads, draining the firm's daily budget of $500 in minutes. The firm's ads go offline for the rest of the day while the competitor's ads continue showing. Google's Invalid Click Detection catches some of this, but not all.",
+    "related": [
+      "ad-fraud",
+      "ivt",
+      "cpc",
+      "ias"
+    ]
+  },
+  {
+    "id": "viewthrough-attribution",
+    "name": "View-Through Attribution",
+    "abbr": "VTA",
+    "category": "measurement",
+    "difficulty": "intermediate",
+    "short": "Crediting a conversion to a display ad that was seen but not clicked, if the conversion happened within the attribution window.",
+    "definition": "View-through attribution (VTA) credits a conversion to a display ad impression that the user saw but never clicked. If someone sees your banner ad on Monday, doesn't click it, but then searches for your brand and converts on Thursday — VTA would credit that conversion to the display impression. It's used to measure the indirect influence of brand advertising.",
+    "whyItMatters": "Display advertising rarely drives direct clicks (CTR is typically <0.1%), but it does influence brand awareness and purchase intent. VTA attempts to capture this indirect impact, though it's controversial — the correlation between seeing an ad and converting isn't always causal.",
+    "example": "A user sees a display ad for a mattress brand three times over two weeks. They never click. But they later search \"best mattress 2024\" on Google, visit the site directly, and buy. With a 7-day VTA window, the display campaign gets credit for influencing that purchase.",
+    "related": [
+      "attribution",
+      "impression",
+      "cpm",
+      "brand-lift"
+    ]
+  }
+]

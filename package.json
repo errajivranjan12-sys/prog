@@ -1,0 +1,18 @@
+{
+  "name": "adopsdesk",
+  "version": "2.0.0",
+  "description": "AdOps & Programmatic Glossary — Plain English for Digital Advertising",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["adops", "programmatic", "glossary", "digital-advertising"],
+  "author": "AdOpsDesk"
+}

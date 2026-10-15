@@ -1,0 +1,44 @@
+[
+  {
+    "id": "programmatic",
+    "name": "Programmatic Basics",
+    "icon": "⚙️",
+    "color": "rgba(43,127,255,0.15)",
+    "desc": "The foundations of automated digital media buying and selling."
+  },
+  {
+    "id": "ad-serving",
+    "name": "Ad Serving",
+    "icon": "📡",
+    "color": "rgba(16,185,129,0.15)",
+    "desc": "How ads are delivered, tracked, and managed at scale."
+  },
+  {
+    "id": "measurement",
+    "name": "Measurement & KPIs",
+    "icon": "📊",
+    "color": "rgba(245,158,11,0.15)",
+    "desc": "Metrics that tell you whether your campaigns are working."
+  },
+  {
+    "id": "audience",
+    "name": "Audience & Data",
+    "icon": "🎯",
+    "color": "rgba(168,85,247,0.15)",
+    "desc": "How advertisers find and target the right people."
+  },
+  {
+    "id": "formats",
+    "name": "Ad Formats",
+    "icon": "🖼️",
+    "color": "rgba(239,68,68,0.15)",
+    "desc": "Display, video, native, CTV, DOOH, and beyond."
+  },
+  {
+    "id": "tech",
+    "name": "Technology & Tools",
+    "icon": "🛠️",
+    "color": "rgba(0,201,255,0.15)",
+    "desc": "Platforms, tools, and tech stacks in the ad ecosystem."
+  }
+]

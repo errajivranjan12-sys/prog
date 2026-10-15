@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdOpsDesk — AdOps & Programmatic Encyclopedia</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060D1B;--surface:#0C1829;--card:#111F35;--card-hover:#162641;--border:rgba(100,150,255,0.1);--border-hover:rgba(100,150,255,0.25);--accent:#2B7FFF;--accent-glow:rgba(43,127,255,0.15);--cyan:#00C9FF;--text:#EEF2FF;--text-muted:#7B90B8;--text-dim:#4A5A78;--tag-bg:rgba(43,127,255,0.12);--tag-text:#7DAAFF;--success:#10B981;--warning:#F59E0B;--danger:#EF4444;--font-head:'Sora',sans-serif;--font-body:'DM Sans',sans-serif;--radius:12px;--radius-sm:8px;--radius-lg:18px;--transition:0.2s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:3px}
+
+/* ANNOUNCEMENT BAR */
+.ann-bar{background:linear-gradient(90deg,rgba(43,127,255,0.15),rgba(0,201,255,0.12),rgba(43,127,255,0.15));border-bottom:1px solid rgba(43,127,255,0.2);padding:9px 5%;text-align:center;font-size:13px;color:var(--text-muted);position:relative}
+.ann-bar strong{color:var(--tag-text);font-weight:600}
+.ann-bar .ann-close{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:18px;line-height:1}
+
+/* PROGRESS BAR */
+#read-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));width:0;z-index:999;transition:width 0.1s;display:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(6,13,27,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 5%}
+.nav-inner{max-width:1300px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-head);font-weight:700;font-size:1.2rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:34px;height:34px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:18px;height:18px}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{font-size:14px;color:var(--text-muted);text-decoration:none;padding:7px 13px;border-radius:var(--radius-sm);transition:var(--transition);font-weight:500;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,0.06)}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:40px;padding:8px 16px;cursor:text;transition:var(--transition)}
+.nav-search:focus-within{border-color:var(--accent)}
+.nav-search input{background:none;border:none;outline:none;color:var(--text);font-family:var(--font-body);font-size:13px;width:170px}
+.nav-search input::placeholder{color:var(--text-dim)}
+.kbd{font-size:11px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2px 7px;pointer-events:none}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text-muted);border-radius:2px;transition:var(--transition)}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* PAGE */
+#page{max-width:1300px;margin:0 auto;padding:0 5%}
+
+/* BREADCRUMBS */
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-dim);padding:18px 0 0;flex-wrap:wrap}
+.breadcrumb a{color:var(--text-dim);text-decoration:none;cursor:pointer;transition:var(--transition)}
+.breadcrumb a:hover{color:var(--text-muted)}
+.breadcrumb .sep{opacity:0.4}
+.breadcrumb .cur{color:var(--text-muted)}
+
+/* TABS */
+.tab-bar{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:32px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:11px 18px;font-size:14px;font-weight:500;color:var(--text-muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:var(--font-body);transition:var(--transition);white-space:nowrap;margin-bottom:-1px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-content{animation:tabFade 0.2s ease}
+@keyframes tabFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{padding:80px 0 70px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.dot-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(100,150,255,0.15) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 40%,transparent 100%);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 40%,transparent 100%)}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.14}
+.hero-orb-1{width:500px;height:500px;background:var(--accent);top:-200px;left:-100px}
+.hero-orb-2{width:350px;height:350px;background:var(--cyan);top:-80px;right:-80px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--tag-bg);border:1px solid rgba(43,127,255,0.25);border-radius:40px;padding:6px 16px;font-size:13px;color:var(--tag-text);font-weight:500;margin-bottom:26px}
+.hero-badge .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+.hero h1{font-family:var(--font-head);font-size:clamp(2.1rem,5vw,3.5rem);font-weight:800;line-height:1.14;letter-spacing:-0.02em;margin-bottom:20px;max-width:700px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.08rem;color:var(--text-muted);max-width:540px;margin-bottom:36px;line-height:1.8}
+.hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:40px;font-size:14px;font-weight:600;font-family:var(--font-body);cursor:pointer;text-decoration:none;transition:var(--transition);border:none;line-height:1}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#3d8fff;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border-hover)}
+.btn-outline:hover{background:rgba(255,255,255,0.05)}
+.btn-sm{padding:8px 16px;font-size:13px}
+.hero-stats{display:flex;gap:40px;margin-top:52px;padding-top:36px;border-top:1px solid var(--border);flex-wrap:wrap}
+.hero-stat .num{font-family:var(--font-head);font-size:1.9rem;font-weight:700}
+.hero-stat .lbl{font-size:13px;color:var(--text-muted);margin-top:3px}
+
+/* SECTIONS */
+.section{padding:60px 0}
+.section-header{margin-bottom:36px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.section-header h2{font-family:var(--font-head);font-size:1.6rem;font-weight:700}
+.section-header p{color:var(--text-muted);font-size:15px;margin-top:6px}
+.view-all{font-size:13px;color:var(--accent);text-decoration:none;font-weight:600;white-space:nowrap;cursor:pointer}
+.view-all:hover{color:var(--cyan)}
+
+/* CATEGORY CARDS */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:14px}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px 18px;cursor:pointer;text-decoration:none;transition:var(--transition);display:flex;flex-direction:column;gap:10px}
+.cat-card:hover{background:var(--card-hover);border-color:var(--border-hover);transform:translateY(-2px)}
+.cat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.cat-card h3{font-family:var(--font-head);font-size:15px;font-weight:600}
+.cat-card p{font-size:13px;color:var(--text-muted);line-height:1.5}
+.cat-count{font-size:12px;color:var(--text-dim);font-weight:500;margin-top:auto}
+
+/* HIGHLIGHT */
+mark{background:rgba(43,127,255,0.28);color:var(--text);border-radius:3px;padding:0 2px}
+
+/* TERM CARDS — category accent border */
+.term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all var(--transition);text-decoration:none;display:block;border-left-width:3px}
+.term-card:hover{background:var(--card-hover);border-color:var(--border-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+.term-card.list-mode{display:flex;align-items:center;gap:16px;padding:14px 18px;border-left-width:3px}
+.term-card.list-mode .tc-body{flex:1}
+.term-card.list-mode h3{font-size:15px}
+.term-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;gap:8px;flex-wrap:wrap}
+.term-card h3{font-family:var(--font-head);font-size:15px;font-weight:600;color:var(--text)}
+.term-card p{font-size:13.5px;color:var(--text-muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:7px}
+/* accent border per category */
+.term-card[data-cat="programmatic"]{border-left-color:#2B7FFF}
+.term-card[data-cat="ad-serving"]{border-left-color:#10B981}
+.term-card[data-cat="measurement"]{border-left-color:#F59E0B}
+.term-card[data-cat="audience"]{border-left-color:#A855F7}
+.term-card[data-cat="formats"]{border-left-color:#EF4444}
+.term-card[data-cat="tech"]{border-left-color:#00C9FF}
+.tag{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap}
+.tag.programmatic{background:rgba(43,127,255,0.12);color:#7DAAFF}
+.tag.ad-serving{background:rgba(16,185,129,0.12);color:#4ADE80}
+.tag.measurement{background:rgba(245,158,11,0.12);color:#FCD34D}
+.tag.audience{background:rgba(168,85,247,0.12);color:#C084FC}
+.tag.formats{background:rgba(239,68,68,0.12);color:#FCA5A5}
+.tag.tech{background:rgba(0,201,255,0.12);color:#67E8F9}
+
+/* FLOW TAB Q-CARDS */
+.q-card{padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:14px;color:var(--text-muted);transition:all var(--transition)}
+.q-card:hover{border-color:var(--border-hover);color:var(--text);background:var(--card-hover);transform:translateY(-1px)}
+
+/* ACTIVE FILTER PILLS */
+.active-filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;padding:12px 16px;background:rgba(43,127,255,0.06);border:1px solid rgba(43,127,255,0.15);border-radius:var(--radius)}
+.filter-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--accent);color:#fff;border-radius:20px;font-size:12px;font-weight:600}
+.filter-pill button{background:none;border:none;color:#fff;cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px;opacity:0.8}
+.filter-pill button:hover{opacity:1}
+
+/* HERO SEARCH */
+.hero-search{display:flex;align-items:center;gap:12px;background:rgba(17,31,53,0.9);border:1px solid var(--border-hover);border-radius:var(--radius);padding:14px 20px;max-width:560px;margin-top:32px;transition:var(--transition);backdrop-filter:blur(10px)}
+.hero-search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.hero-search svg{color:var(--text-dim);flex-shrink:0}
+.hero-search input{flex:1;background:none;border:none;outline:none;font-family:var(--font-body);font-size:16px;color:var(--text)}
+.hero-search input::placeholder{color:var(--text-dim)}
+.hero-search .hs-hint{font-size:12px;color:var(--text-dim);white-space:nowrap}
+
+/* SEARCH */
+.search-big{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 20px;max-width:620px;transition:var(--transition)}
+.search-big:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.search-big svg{width:20px;height:20px;flex-shrink:0;color:var(--text-dim)}
+.search-big input{flex:1;background:none;border:none;outline:none;font-family:var(--font-body);font-size:16px;color:var(--text)}
+.search-big input::placeholder{color:var(--text-dim)}
+
+/* A-Z */
+.az-filter{display:flex;flex-wrap:wrap;gap:5px;padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:28px}
+.az-btn{min-width:32px;height:32px;display:flex;align-items:center;justify-content:center;padding:0 6px;border-radius:var(--radius-sm);background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:var(--transition)}
+.az-btn:hover{color:var(--text);border-color:var(--border-hover)}
+.az-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* GLOSS CONTROLS */
+.gloss-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.sort-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;color:var(--text-muted);cursor:pointer;font-family:var(--font-body);transition:var(--transition)}
+.sort-btn:hover{color:var(--text);border-color:var(--border-hover)}
+.view-toggle{display:flex;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+.vt-btn{padding:7px 12px;background:none;border:none;cursor:pointer;color:var(--text-dim);transition:var(--transition)}
+.vt-btn.active{background:var(--accent);color:#fff}
+.results-count{font-size:13px;color:var(--text-dim);margin-left:auto}
+
+/* TERM PAGE */
+.term-page{padding:40px 0 80px}
+.back-btn{display:inline-flex;align-items:center;gap:7px;color:var(--text-muted);font-size:13px;font-weight:500;cursor:pointer;padding:7px 13px;border-radius:var(--radius-sm);border:1px solid var(--border);transition:var(--transition)}
+.back-btn:hover{color:var(--text);border-color:var(--border-hover)}
+.term-header{margin:20px 0 28px}
+.term-header h1{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;line-height:1.18;margin-bottom:10px}
+.term-header .abbr{font-size:14px;color:var(--text-muted);margin-bottom:14px;font-style:italic}
+.term-meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.term-page-layout{display:grid;grid-template-columns:1fr 300px;gap:36px;align-items:start}
+.term-tabs{margin-bottom:28px}
+.term-intro{font-size:1.05rem;color:var(--text-muted);line-height:1.8;border-left:3px solid var(--accent);background:var(--accent-glow);padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:28px}
+.term-content h2{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin:32px 0 12px;color:var(--text)}
+.term-content p{color:var(--text-muted);line-height:1.85;margin-bottom:16px;font-size:15px}
+.term-content strong{color:var(--text);font-weight:600}
+.example-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:20px 0}
+.ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.example-box p{color:var(--text-muted);font-size:14.5px;margin:0}
+.how-it-works{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin:24px 0}
+.how-it-works h3{font-family:var(--font-head);font-size:14px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.steps{display:flex;flex-direction:column;gap:13px}
+.step{display:flex;gap:13px;align-items:flex-start}
+.step-num{width:26px;height:26px;min-width:26px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:2px}
+.step-content strong{font-size:14px;font-weight:600;color:var(--text);display:block;margin-bottom:2px}
+.step-content span{font-size:13px;color:var(--text-muted)}
+/* Copy button */
+.copy-def-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);font-size:12px;color:var(--text-muted);cursor:pointer;font-family:var(--font-body);transition:var(--transition)}
+.copy-def-btn:hover{color:var(--text);border-color:var(--border-hover)}
+.copy-def-btn.copied{color:var(--success);border-color:rgba(16,185,129,0.3)}
+/* Prev/Next nav */
+.term-nav{display:flex;gap:10px;justify-content:space-between;margin-top:40px;padding-top:28px;border-top:1px solid var(--border)}
+.term-nav-btn{flex:1;display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition);max-width:48%}
+.term-nav-btn:hover{background:var(--card-hover);border-color:var(--border-hover)}
+.term-nav-btn .nav-dir{font-size:11px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+.term-nav-btn .nav-name{font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--text)}
+.term-nav-btn.next{text-align:right}
+/* Diagram */
+.term-diagram{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin:24px 0;overflow:hidden}
+.term-diagram svg{width:100%;height:auto;display:block}
+/* Sidebar */
+.term-sidebar{position:sticky;top:84px}
+.sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px}
+.sidebar-card h4{font-family:var(--font-head);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:14px}
+.related-list{display:flex;flex-direction:column;gap:7px}
+.related-item{padding:9px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text-muted);transition:var(--transition);display:block;text-decoration:none}
+.related-item:hover{color:var(--text);border-color:var(--border-hover);background:var(--card-hover)}
+.meta-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.meta-item:last-child{border-bottom:none}
+.meta-item .lbl{color:var(--text-dim)}
+.meta-item .val{color:var(--text);font-weight:500}
+.aka-box{background:rgba(43,127,255,0.06);border:1px solid rgba(43,127,255,0.15);border-radius:var(--radius-sm);padding:10px 14px;margin:16px 0;font-size:13px;color:var(--text-muted)}
+.aka-box strong{color:var(--tag-text);font-size:11px;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:4px}
+
+/* GLOSSARY HERO */
+.gloss-hero{padding:50px 0 40px;border-bottom:1px solid var(--border)}
+.gloss-hero h1{font-family:var(--font-head);font-size:2.2rem;font-weight:800;margin-bottom:10px}
+.gloss-hero p{color:var(--text-muted);font-size:1.02rem;max-width:520px}
+
+/* CATEGORY PAGE */
+.cat-page-hero{padding:44px 0 36px;border-bottom:1px solid var(--border);margin-bottom:36px}
+.cat-icon-lg{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+.cat-page-hero h1{font-family:var(--font-head);font-size:1.9rem;font-weight:800;margin-bottom:8px}
+.cat-page-hero p{color:var(--text-muted);font-size:1rem;max-width:540px}
+.cat-stat-row{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.cat-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;text-align:center}
+.cat-stat .n{font-family:var(--font-head);font-size:1.4rem;font-weight:700}
+.cat-stat .l{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+/* CALCULATOR */
+.calc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;max-width:700px}
+.calc-card h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:20px;color:var(--text)}
+.calc-mode-active{color:var(--text)!important;border-color:var(--accent)!important}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.calc-field label{display:block;font-size:12px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:7px}
+.calc-field input,.calc-field select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;color:var(--text);font-family:var(--font-body);font-size:15px;outline:none;transition:var(--transition)}
+.calc-field input:focus,.calc-field select:focus{border-color:var(--accent)}
+.calc-result{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-top:20px;display:flex;gap:24px;flex-wrap:wrap}
+.calc-result-item .rn{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--accent)}
+.calc-result-item .rl{font-size:13px;color:var(--text-muted);margin-top:3px}
+
+/* ECOSYSTEM VISUAL */
+.eco-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin:0 0 30px}
+.eco-wrap h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:20px}
+.eco-flow{display:flex;align-items:center;justify-content:space-between;gap:8px;overflow-x:auto;padding-bottom:8px}
+.eco-node{flex:1;min-width:110px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:var(--transition)}
+.eco-node:hover{border-color:var(--border-hover);background:var(--card-hover)}
+.eco-node .en-icon{font-size:22px;margin-bottom:8px}
+.eco-node .en-name{font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--text)}
+.eco-node .en-desc{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.4}
+.eco-arrow{color:var(--text-dim);font-size:20px;flex-shrink:0;opacity:0.5}
+
+/* TRENDING */
+.trending-list{display:flex;flex-direction:column;gap:10px}
+.trending-item{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition)}
+.trending-item:hover{background:var(--card-hover);border-color:var(--border-hover)}
+.trending-rank{font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--text-dim);min-width:24px}
+.trending-info{flex:1}
+.trending-info strong{font-size:15px;font-weight:600;color:var(--text);display:block;font-family:var(--font-head)}
+.trending-info span{font-size:13px;color:var(--text-muted)}
+.trending-tag{margin-left:auto}
+
+/* CTA BANNER */
+.cta-banner{background:linear-gradient(135deg,rgba(43,127,255,0.12),rgba(0,201,255,0.08));border:1px solid rgba(43,127,255,0.2);border-radius:var(--radius-lg);padding:44px;text-align:center;margin:20px 0 60px}
+.cta-banner h2{font-family:var(--font-head);font-size:1.6rem;font-weight:700;margin-bottom:10px}
+.cta-banner p{color:var(--text-muted);max-width:460px;margin:0 auto 26px;font-size:1rem}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER (3-col) */
+footer{border-top:1px solid var(--border);padding:54px 5% 36px;margin-top:60px}
+.footer-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-brand .footer-logo{font-family:var(--font-head);font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.footer-brand .footer-logo span{color:var(--accent)}
+.footer-brand p{font-size:13px;color:var(--text-dim);line-height:1.7;max-width:220px}
+.footer-col h5{font-family:var(--font-head);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-dim);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--text-dim);text-decoration:none;margin-bottom:9px;transition:var(--transition);cursor:pointer}
+.footer-col a:hover{color:var(--text-muted)}
+.footer-bottom{max-width:1300px;margin:36px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-dim);flex-wrap:wrap;gap:10px}
+
+/* BACK TO TOP */
+#back-top{position:fixed;bottom:28px;right:28px;width:42px;height:42px;background:var(--accent);border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:90;transition:var(--transition);box-shadow:0 4px 20px rgba(43,127,255,0.3)}
+#back-top:hover{background:#3d8fff;transform:translateY(-2px)}
+#back-top svg{width:18px;height:18px}
+
+/* PAGE FADE */
+.page-fade{animation:fadeIn 0.22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:960px){.term-page-layout{grid-template-columns:1fr}.term-sidebar{position:static}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav-links{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:rgba(6,13,27,0.98);border-bottom:1px solid var(--border);padding:12px 20px;z-index:99}.nav-links.open{display:flex}.hamburger{display:flex}.calc-row{grid-template-columns:1fr}.eco-flow{gap:4px}.eco-arrow{display:none}}
+@media(max-width:600px){.hero{padding:50px 0 44px}.hero h1{font-size:1.95rem}.hero-stats{gap:20px}.cat-grid{grid-template-columns:repeat(2,1fr)}.term-grid{grid-template-columns:1fr}.nav-search{display:none}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="read-progress"></div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar" id="ann-bar">
+  <strong>📢 New:</strong> 45+ terms now live — Programmatic, CTV, Measurement, Brand Safety &amp; more. All plain English, zero jargon.
+  <button class="ann-close" onclick="document.getElementById('ann-bar').remove()">×</button>
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <div class="logo" onclick="navigate('home')">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      </div>
+      AdOps<span>Desk</span>
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a onclick="navigate('home')" id="nav-home">Home</a>
+      <a onclick="navigate('glossary')" id="nav-glossary">Glossary</a>
+      <a onclick="navigate('categories')" id="nav-categories">Categories</a>
+      <a onclick="navigate('about')" id="nav-about">About</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="nav-search-input" placeholder="Search terms... (⌘K)" oninput="onNavSearch(this.value)">
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div id="app"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">AdOps<span>Desk</span></div>
+      <p>Your plain-English guide to programmatic advertising, AdOps, and digital marketing. Free, forever.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Learn</h5>
+      <a onclick="navigate('term','rtb')">What is RTB?</a>
+      <a onclick="navigate('term','dsp')">What is a DSP?</a>
+      <a onclick="navigate('term','cpm')">What is CPM?</a>
+      <a onclick="navigate('term','trafficking')">Ad Trafficking</a>
+      <a onclick="navigate('glossary')">Full Glossary →</a>
+    </div>
+    <div class="footer-col">
+      <h5>Categories</h5>
+      <a onclick="navigate('category','programmatic')">⚙️ Programmatic</a>
+      <a onclick="navigate('category','ad-serving')">📡 Ad Serving</a>
+      <a onclick="navigate('category','measurement')">📊 Measurement</a>
+      <a onclick="navigate('category','audience')">🎯 Audience & Data</a>
+      <a onclick="navigate('category','formats')">🖼️ Ad Formats</a>
+    </div>
+    <div class="footer-col">
+      <h5>Site</h5>
+      <a onclick="navigate('home')">Home</a>
+      <a onclick="navigate('glossary')">Glossary</a>
+      <a onclick="navigate('categories')">All Categories</a>
+      <a onclick="navigate('about')">About</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AdOpsDesk — Free Knowledge Base</span>
+    <span>Built for AdOps professionals & digital marketers</span>
+  </div>
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="18,15 12,9 6,15"/></svg>
+</button>
+
+<script>
+/* ============================================================
+   DATA
+============================================================ */
+
+/* ============================================================
+   DATA — loaded from /api/data on startup
+============================================================ */
+let CATEGORIES = [];
+let TERMS = [];
+
+/* ============================================================
+   STATE
+============================================================ */
+let currentPage = 'home';
+let currentParam = null;
+let glossarySearch = '';
+let glossaryAZ = 'all';
+let glossaryCat = 'all';
+let glossaryTab = 'all';
+let glossarySort = 'az';
+let glossaryView = 'grid';
+let homeTab = 'featured';
+let termTab = 'definition';
+let recentlyViewed = [];
+
+/* ============================================================
+   ROUTER
+============================================================ */
+function navigate(page, param) {
+  // Close mobile menu if open
+  const links = document.getElementById('nav-links');
+  const hbtn = document.getElementById('hamburger');
+  if(links) links.classList.remove('open');
+  if(hbtn) hbtn.classList.remove('open');
+  // Clear nav search input when navigating away
+  const navInp = document.getElementById('nav-search-input');
+  if(navInp) navInp.value = '';
+  // If leaving glossary, clear the search state so next visit is fresh
+  if(currentPage === 'glossary' && page !== 'glossary') {
+    glossarySearch = '';
+    glossaryAZ = 'all';
+    glossaryCat = 'all';
+    glossaryTab = 'all';
+  }
+  // Track recently viewed terms
+  if(page === 'term' && param) {
+    recentlyViewed = [param, ...recentlyViewed.filter(id => id !== param)].slice(0, 5);
+  }
+  currentPage = page;
+  currentParam = param || null;
+  termTab = 'definition';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+  updateNavActive();
+  updateReadProgress();
+}
+function updateNavActive() {
+  ['home','glossary','categories','about'].forEach(id => {
+    const el = document.getElementById('nav-'+id);
+    if(el) el.classList.toggle('active', currentPage === id || (currentPage==='term' && id==='glossary') || (currentPage==='category' && id==='categories'));
+  });
+}
+function toggleMenu() {
+  const links = document.getElementById('nav-links');
+  const btn = document.getElementById('hamburger');
+  links.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+function onNavSearch(q) {
+  if(q.length > 1) {
+    glossarySearch = q;
+    if(currentPage !== 'glossary') navigate('glossary');
+    else render();
+  } else if(q.length === 0) {
+    glossarySearch = '';
+    if(currentPage === 'glossary') render();
+  }
+}
+document.addEventListener('keydown', e => {
+  if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();document.getElementById('nav-search-input')?.focus();}
+});
+
+function onHeroSearch(q) {
+  if(q.length > 1) {
+    glossarySearch = q;
+    navigate('glossary');
+  }
+}
+// Allow Enter key on hero search
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter') {
+    const heroInp = document.getElementById('hero-search-input');
+    if(document.activeElement === heroInp && heroInp.value.length > 0) {
+      glossarySearch = heroInp.value;
+      navigate('glossary');
+    }
+  }
+});
+
+/* Scroll events */
+window.addEventListener('scroll', () => {
+  const bt = document.getElementById('back-top');
+  if(bt) bt.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  updateReadProgress();
+});
+function updateReadProgress() {
+  const bar = document.getElementById('read-progress');
+  if(!bar) return;
+  if(currentPage === 'term') {
+    bar.style.display = 'block';
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY/h*100) : 0) + '%';
+  } else {
+    bar.style.display = 'none';
+    bar.style.width = '0';
+  }
+}
+
+/* ============================================================
+   RENDER
+============================================================ */
+function render() {
+  const app = document.getElementById('app');
+  let html = '<div class="page-fade" id="page">';
+  if(currentPage==='home') html += renderHome();
+  else if(currentPage==='glossary') html += renderGlossary();
+  else if(currentPage==='term') html += renderTerm(currentParam);
+  else if(currentPage==='categories') html += renderCategories();
+  else if(currentPage==='category') html += renderCategory(currentParam);
+  else if(currentPage==='about') html += renderAbout();
+  html += '</div>';
+  app.innerHTML = html;
+  if(currentPage==='glossary'){
+    const inp=document.getElementById('gloss-input');
+    if(inp){
+      inp.value=glossarySearch;
+      inp.focus();
+      const len=glossarySearch.length;
+      inp.setSelectionRange(len,len);
+    }
+  }
+}
+
+/* ============================================================
+   HOME
+============================================================ */
+function renderHome() {
+  const featTerms = ['rtb','dsp','cpm','viewability','header-bidding','pmp'].map(id=>TERMS.find(t=>t.id===id));
+  const trending = ['rtb','dsp','ssp','cpm','trafficking','brand-safety','ctv','retargeting'];
+  return `
+<div class="hero">
+  <div class="hero-bg">
+    <div class="dot-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+  <div class="hero-badge"><div class="dot"></div> Free Knowledge Base · No Signup Needed</div>
+  <h1>The Plain-English Guide to<br><em>AdOps & Programmatic</em></h1>
+  <p>No jargon. No fluff. Everything you need to understand how digital advertising actually works — from RTB to CTV, from trafficking to brand safety.</p>
+  <div class="hero-ctas">
+    <button class="btn btn-primary" onclick="navigate('glossary')">Browse All Terms →</button>
+    <button class="btn btn-outline" onclick="navigate('categories')">Explore by Category</button>
+  </div>
+  <div class="hero-search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="hero-search-input" placeholder="Search any AdOps term... e.g. RTB, CPM, DMP" oninput="onHeroSearch(this.value)">
+    <span class="hs-hint">↵ Search</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">${TERMS.length}+</div><div class="lbl">Glossary Terms</div></div>
+    <div class="hero-stat"><div class="num">6</div><div class="lbl">Categories</div></div>
+    <div class="hero-stat"><div class="num">Plain</div><div class="lbl">English Explained</div></div>
+    <div class="hero-stat"><div class="num">100%</div><div class="lbl">Free & Open</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div><h2>Browse by Category</h2><p>Pick a topic that matters to you right now.</p></div>
+    <span class="view-all" onclick="navigate('categories')">View all →</span>
+  </div>
+  <div class="cat-grid">${CATEGORIES.map(c=>`
+    <div class="cat-card" onclick="navigate('category','${c.id}')">
+      <div class="cat-icon" style="background:${c.color}">${c.icon}</div>
+      <h3>${c.name}</h3>
+      <p>${c.desc}</p>
+      <div class="cat-count">${TERMS.filter(t=>t.category===c.id).length} terms</div>
+    </div>`).join('')}
+  </div>
+</div>
+
+<div class="section" style="border-top:1px solid var(--border)">
+  <div class="section-header">
+    <div><h2>Explore the Knowledge Base</h2><p>Pick a starting point below.</p></div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn home-tab-btn ${homeTab==='featured'?'active':''}" data-tab="featured" onclick="switchHomeTab('featured')">Featured Terms</button>
+    <button class="tab-btn home-tab-btn ${homeTab==='flow'?'active':''}" data-tab="flow" onclick="switchHomeTab('flow')">Programmatic Flow</button>
+    <button class="tab-btn home-tab-btn ${homeTab==='calculator'?'active':''}" data-tab="calculator" onclick="switchHomeTab('calculator')">CPM Calculator</button>
+    <button class="tab-btn home-tab-btn ${homeTab==='trending'?'active':''}" data-tab="trending" onclick="switchHomeTab('trending')">Trending Terms</button>
+  </div>
+  <div id="home-tab-content" class="tab-content">${renderHomeTabContent()}</div>
+</div>
+
+<div class="cta-banner">
+  <div style="font-size:2rem;margin-bottom:12px">🚀</div>
+  <h2>New to programmatic?</h2>
+  <p>Start with the three most important concepts — what RTB is, what a DSP does, and why every campaign needs an ad server.</p>
+  <div class="cta-btns">
+    <button class="btn btn-primary" onclick="navigate('term','rtb')">What is RTB?</button>
+    <button class="btn btn-outline" onclick="navigate('term','dsp')">What is a DSP?</button>
+    <button class="btn btn-outline" onclick="navigate('term','ad-server')">Ad Servers Explained</button>
+  </div>
+</div>`;
+}
+
+function applyTabFade() {
+  const el = document.getElementById('home-tab-content');
+  if(!el) return;
+  el.style.transition = 'none';
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(4px)';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    el.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  }));
+}
+
+function switchHomeTab(tab) {
+  homeTab = tab;
+  document.querySelectorAll('.home-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  const el = document.getElementById('home-tab-content');
+  if(el) { el.innerHTML = renderHomeTabContent(); applyTabFade(); }
+}
+
+function renderHomeTabContent() {
+  if(homeTab==='featured') {
+    const terms = ['rtb','dsp','cpm','viewability','header-bidding','pmp'].map(id=>TERMS.find(t=>t.id===id));
+    return `<div class="term-grid">${terms.map(t=>renderTermCard(t)).join('')}</div>
+    <div style="text-align:center;margin-top:24px"><button class="btn btn-outline" onclick="navigate('glossary')">See all ${TERMS.length} terms →</button></div>`;
+  }
+  if(homeTab==='flow') {
+    const nodes = [
+      {icon:'👤',name:'Advertiser',desc:'Sets budget & goals',term:'dsp'},
+      {icon:'⚙️',name:'DSP',desc:'Buying platform',term:'dsp'},
+      {icon:'🏦',name:'Ad Exchange',desc:'Runs the auction',term:'ad-exchange'},
+      {icon:'📡',name:'SSP',desc:'Selling platform',term:'ssp'},
+      {icon:'📰',name:'Publisher',desc:'Website / App',term:'ad-server'},
+      {icon:'👁️',name:'User',desc:'Sees the ad',term:'impression'}
+    ];
+    return `
+    <div class="eco-wrap">
+      <h3>How an ad impression travels from advertiser to user in ~100ms</h3>
+      <div class="eco-flow">
+        ${nodes.map((n,i)=>`
+          <div class="eco-node" onclick="navigate('term','${n.term}')">
+            <div class="en-icon">${n.icon}</div>
+            <div class="en-name">${n.name}</div>
+            <div class="en-desc">${n.desc}</div>
+          </div>
+          ${i<nodes.length-1?'<div class="eco-arrow">→</div>':''}`).join('')}
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px">
+      ${[{q:'What is an auction?',t:'rtb'},{q:'Who buys the ads?',t:'dsp'},{q:'Who sells inventory?',t:'ssp'},{q:'What is a bid request?',t:'rtb'},{q:'How does pricing work?',t:'cpm'},{q:'What are ad tags?',t:'ad-tag'}].map(x=>`
+      <div class="q-card" onclick="navigate('term','${x.t}')">
+        <span style="color:var(--accent);margin-right:8px">▸</span>${x.q}
+      </div>`).join('')}
+    </div>`;
+  }
+  if(homeTab==='calculator') {
+    return `
+    <div class="calc-card">
+      <h3>📐 Media Buying Calculator</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+        ${['CPM Calculator','CPC Calculator','Budget Calculator'].map((l,i)=>`<button onclick="setCalcMode(${i})" id="cmode${i}" class="sort-btn${i===0?' calc-mode-active':''}">${l}</button>`).join('')}
+      </div>
+      <div id="calc-body">${renderCalcCPM()}</div>
+    </div>
+    <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+      ${[{lbl:'Typical Display CPM',val:'$1–$5',note:'Open exchange'},{lbl:'Typical PMP CPM',val:'$8–$25',note:'Premium inventory'},{lbl:'CTV CPM',val:'$20–$60',note:'Connected TV'},{lbl:'Average Display CTR',val:'0.05–0.1%',note:'Industry benchmark'}].map(x=>`
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px">
+        <div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">${x.lbl}</div>
+        <div style="font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--accent)">${x.val}</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:3px">${x.note}</div>
+      </div>`).join('')}
+    </div>`;
+  }
+  if(homeTab==='trending') {
+    const trending = ['rtb','dsp','cpm','trafficking','brand-safety','ctv','retargeting','header-bidding','viewability','dv360'];
+    return `<div class="trending-list">
+      ${trending.map((id,i)=>{const t=TERMS.find(x=>x.id===id);if(!t)return'';const cat=CATEGORIES.find(c=>c.id===t.category);return`
+      <div class="trending-item" onclick="navigate('term','${t.id}')">
+        <div class="trending-rank">${String(i+1).padStart(2,'0')}</div>
+        <div class="trending-info"><strong>${t.name}</strong><span>${t.short.slice(0,80)}...</span></div>
+        <div class="trending-tag"><span class="tag ${t.category}">${cat?cat.icon:''}</span></div>
+      </div>`;}).join('')}
+    </div>`;
+  }
+  return '';
+}
+
+function renderCalcCPM() {
+  const b=10000, cpm=5;
+  const imps=Math.round(b/cpm*1000);
+  return `<div class="calc-row">
+    <div class="calc-field"><label>Budget ($)</label><input type="number" id="c_budget" value="${b}" oninput="calcUpdate()"></div>
+    <div class="calc-field"><label>CPM ($)</label><input type="number" id="c_cpm" value="${cpm}" step="0.1" oninput="calcUpdate()"></div>
+  </div>
+  <div class="calc-result" id="calc-result">
+    <div class="calc-result-item"><div class="rn" id="cr_imps">${imps.toLocaleString()}</div><div class="rl">Impressions</div></div>
+    <div class="calc-result-item"><div class="rn" id="cr_reach">~${Math.round(imps/3).toLocaleString()}</div><div class="rl">Est. Unique Reach (freq 3×)</div></div>
+    <div class="calc-result-item"><div class="rn" id="cr_cpc">$${(cpm/0.001/1000).toFixed(2)}</div><div class="rl">Est. Cost Per Click (0.1% CTR)</div></div>
+  </div>`;
+}
+
+function setCalcMode(m) {
+  [0,1,2].forEach(i=>{
+    const b=document.getElementById('cmode'+i);
+    if(b) b.classList.toggle('calc-mode-active', i===m);
+  });
+  const body=document.getElementById('calc-body');
+  if(!body) return;
+  if(m===0) { body.innerHTML=renderCalcCPM(); }
+  else if(m===1) {
+    const b2=5000, cpc=1.5, clicks=Math.round(b2/cpc);
+    body.innerHTML=`<div class="calc-row"><div class="calc-field"><label>Budget ($)</label><input type="number" id="c2_budget" value="${b2}" oninput="calcCPCUpdate()"></div><div class="calc-field"><label>CPC ($)</label><input type="number" id="c2_cpc" value="${cpc}" step="0.1" oninput="calcCPCUpdate()"></div></div><div class="calc-result"><div class="calc-result-item"><div class="rn" id="cr2_clicks">${clicks.toLocaleString()}</div><div class="rl">Estimated Clicks</div></div><div class="calc-result-item"><div class="rn" id="cr2_conv">~${Math.round(clicks*0.05).toLocaleString()}</div><div class="rl">Est. Conversions (5% CVR)</div></div></div>`;
+  } else {
+    const imps=5000000, cpm3=8, budget=Math.round(imps/1000*cpm3);
+    body.innerHTML=`<div class="calc-row"><div class="calc-field"><label>Target Impressions</label><input type="number" id="c3_imps" value="${imps}" oninput="calcBudgetUpdate()"></div><div class="calc-field"><label>CPM ($)</label><input type="number" id="c3_cpm" value="${cpm3}" step="0.1" oninput="calcBudgetUpdate()"></div></div><div class="calc-result"><div class="calc-result-item"><div class="rn" id="cr3_budget">$${budget.toLocaleString()}</div><div class="rl">Required Budget</div></div><div class="calc-result-item"><div class="rn" id="cr3_daily">~$${Math.round(budget/30).toLocaleString()}</div><div class="rl">Daily Budget (30 days)</div></div></div>`;
+  }
+}
+
+function calcUpdate() {
+  const b=parseFloat(document.getElementById('c_budget')?.value)||10000;
+  const cpm=parseFloat(document.getElementById('c_cpm')?.value)||5;
+  const imps=Math.round(b/cpm*1000);
+  if(document.getElementById('cr_imps')) document.getElementById('cr_imps').textContent=imps.toLocaleString();
+  if(document.getElementById('cr_reach')) document.getElementById('cr_reach').textContent='~'+Math.round(imps/3).toLocaleString();
+  // CPC = CPM / (CTR% * 10) where CTR=0.1% → CPC = CPM / 1 = CPM
+  const cpc = cpm > 0 ? (cpm / (0.001 * 1000)).toFixed(2) : '0.00';
+  if(document.getElementById('cr_cpc')) document.getElementById('cr_cpc').textContent='$'+cpc;
+}
+function calcCPCUpdate() {
+  const b=parseFloat(document.getElementById('c2_budget')?.value)||5000;
+  const cpc=parseFloat(document.getElementById('c2_cpc')?.value)||1.5;
+  const clicks=Math.round(b/cpc);
+  if(document.getElementById('cr2_clicks')) document.getElementById('cr2_clicks').textContent=clicks.toLocaleString();
+  if(document.getElementById('cr2_conv')) document.getElementById('cr2_conv').textContent='~'+Math.round(clicks*0.05).toLocaleString();
+}
+function calcBudgetUpdate() {
+  const imps=parseFloat(document.getElementById('c3_imps')?.value)||5000000;
+  const cpm=parseFloat(document.getElementById('c3_cpm')?.value)||8;
+  const budget=Math.round(imps/1000*cpm);
+  if(document.getElementById('cr3_budget')) document.getElementById('cr3_budget').textContent='$'+budget.toLocaleString();
+  if(document.getElementById('cr3_daily')) document.getElementById('cr3_daily').textContent='~$'+Math.round(budget/30).toLocaleString();
+}
+
+/* ============================================================
+   GLOSSARY
+============================================================ */
+function renderGlossary() {
+  const letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  let filtered = TERMS;
+  if(glossarySearch){const q=glossarySearch.toLowerCase();filtered=filtered.filter(t=>t.name.toLowerCase().includes(q)||t.short.toLowerCase().includes(q)||(t.abbr&&t.abbr.toLowerCase().includes(q))||(t.aka&&t.aka.toLowerCase().includes(q))||(t.definition&&t.definition.toLowerCase().includes(q)));}
+  if(glossaryAZ!=='all') filtered=filtered.filter(t=>t.name.toUpperCase().startsWith(glossaryAZ));
+  if(glossaryCat!=='all') filtered=filtered.filter(t=>t.category===glossaryCat);
+  if(glossaryTab==='abbrevs') filtered=filtered.filter(t=>t.abbr&&t.abbr.length>0&&t.name.includes('—'));
+  const sorted=[...filtered].sort((a,b)=>glossarySort==='az'?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+
+  return `
+<div class="gloss-hero">
+  <h1>📖 The AdOps Glossary</h1>
+  <p>Plain-English definitions for every term in programmatic and digital advertising. Search, filter, and browse.</p>
+  <div style="margin-top:24px">
+    <div class="search-big">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="gloss-input" placeholder="Search 45+ terms, abbreviations, platforms..." oninput="glossarySearch=this.value;render()">
+      ${glossarySearch?`<button onclick="glossarySearch='';render()" style="background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:20px;line-height:1">×</button>`:''}
+    </div>
+  </div>
+</div>
+
+<div class="tab-bar" style="margin-top:24px">
+  <button class="tab-btn ${glossaryTab==='all'?'active':''}" onclick="glossaryTab='all';render()">All Terms <span style="font-size:11px;color:var(--text-dim);margin-left:4px">${TERMS.length}</span></button>
+  <button class="tab-btn ${glossaryTab==='abbrevs'?'active':''}" onclick="glossaryTab='abbrevs';render()">Abbreviations <span style="font-size:11px;color:var(--text-dim);margin-left:4px">${TERMS.filter(t=>t.name.includes('—')).length}</span></button>
+</div>
+
+<div class="az-filter">
+  <button class="az-btn ${glossaryAZ==='all'?'active':''}" onclick="glossaryAZ='all';render()" style="padding:0 12px;width:auto">All</button>
+  ${letters.map(l=>`<button class="az-btn ${glossaryAZ===l?'active':''}" onclick="glossaryAZ='${l}';render()">${l}</button>`).join('')}
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
+  <button class="az-btn ${glossaryCat==='all'?'active':''}" onclick="glossaryCat='all';render()" style="padding:0 12px;width:auto">All</button>
+  ${CATEGORIES.map(c=>`<button class="az-btn ${glossaryCat===c.id?'active':''}" onclick="glossaryCat='${c.id}';render()" style="padding:0 12px;width:auto">${c.icon} ${c.name}</button>`).join('')}
+</div>
+
+<div class="gloss-controls">
+  <button class="sort-btn" onclick="glossarySort=glossarySort==='az'?'za':'az';render()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
+    ${glossarySort==='az'?'A → Z':'Z → A'}
+  </button>
+  <div class="view-toggle">
+    <button class="vt-btn ${glossaryView==='grid'?'active':''}" onclick="glossaryView='grid';render()" title="Grid view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+    <button class="vt-btn ${glossaryView==='list'?'active':''}" onclick="glossaryView='list';render()" title="List view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+  <span class="results-count">${sorted.length} term${sorted.length!==1?'s':''} found</span>
+</div>
+${(glossarySearch||glossaryAZ!=='all'||glossaryCat!=='all'||glossaryTab!=='all')?`
+<div class="active-filters">
+  <span style="font-size:12px;color:var(--text-dim);font-weight:600;margin-right:4px">Active filters:</span>
+  ${glossarySearch?`<span class="filter-pill">"${glossarySearch}" <button onclick="glossarySearch='';render()">×</button></span>`:''}
+  ${glossaryAZ!=='all'?`<span class="filter-pill">Letter: ${glossaryAZ} <button onclick="glossaryAZ='all';render()">×</button></span>`:''}
+  ${glossaryCat!=='all'?`<span class="filter-pill">${CATEGORIES.find(c=>c.id===glossaryCat)?.name||glossaryCat} <button onclick="glossaryCat='all';render()">×</button></span>`:''}
+  ${glossaryTab==='abbrevs'?`<span class="filter-pill">Abbreviations only <button onclick="glossaryTab='all';render()">×</button></span>`:''}
+  <button class="sort-btn" onclick="glossarySearch='';glossaryAZ='all';glossaryCat='all';glossaryTab='all';render()" style="margin-left:auto;font-size:12px">Clear all</button>
+</div>`:''}
+
+
+${sorted.length===0?`
+<div style="text-align:center;padding:60px 0;color:var(--text-muted)">
+  <div style="font-size:3rem;margin-bottom:16px">🔍</div>
+  <h3 style="font-family:var(--font-head);font-size:1.2rem;margin-bottom:8px">No terms found</h3>
+  <p>Try a different search or clear your filters.</p>
+  <button class="btn btn-outline" style="margin-top:20px" onclick="glossarySearch='';glossaryAZ='all';glossaryCat='all';glossaryTab='all';render()">Clear All Filters</button>
+</div>
+`:`
+<div class="${glossaryView==='grid'?'term-grid':'term-list'}" style="margin-bottom:60px">
+  ${sorted.map(t=>renderTermCard(t,glossaryView==='list')).join('')}
+</div>`}`;
+}
+
+/* ============================================================
+   TERM CARD
+============================================================ */
+function highlight(text, query) {
+  if(!query) return text;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return text.replace(new RegExp(`(${escaped})`,'gi'),'<mark>$1</mark>');
+}
+
+function renderTermCard(t, listMode=false) {
+  if(!t) return '';
+  const cat=CATEGORIES.find(c=>c.id===t.category);
+  const q = currentPage === 'glossary' ? glossarySearch : '';
+  const name = highlight(t.name, q);
+  const short = highlight(t.short, q);
+  if(listMode) return `
+  <div class="term-card list-mode" data-cat="${t.category}" onclick="navigate('term','${t.id}')">
+    <span class="tag ${t.category}" style="flex-shrink:0">${cat?cat.icon:''}</span>
+    <div class="tc-body" style="flex:1">
+      <h3 style="font-family:var(--font-head);font-size:15px;font-weight:600;color:var(--text)">${name}</h3>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:3px">${short}</p>
+    </div>
+  </div>`;
+  return `
+  <div class="term-card" data-cat="${t.category}" onclick="navigate('term','${t.id}')">
+    <div class="term-card-top">
+      <span class="tag ${t.category}">${cat?cat.icon+' ':''} ${cat?cat.name:''}</span>
+    </div>
+    <h3>${name}</h3>
+    <p>${short}</p>
+  </div>`;
+}
+
+/* ============================================================
+   TERM DETAIL
+============================================================ */
+function renderTerm(id) {
+  const t=TERMS.find(x=>x.id===id);
+  if(!t) return `<div style="padding:80px 0;text-align:center"><h2>Term not found</h2><button class="btn btn-outline" onclick="navigate('glossary')" style="margin-top:20px">Back to Glossary</button></div>`;
+  const cat=CATEGORIES.find(c=>c.id===t.category);
+  const related=(t.related||[]).map(rid=>TERMS.find(x=>x.id===rid)).filter(Boolean);
+  const sortedTerms=[...TERMS].sort((a,b)=>a.name.localeCompare(b.name));
+  const idx=sortedTerms.findIndex(x=>x.id===id);
+  const prev=sortedTerms[idx-1];
+  const next=sortedTerms[idx+1];
+  let diagramHtml='';
+  if(t.id==='rtb') diagramHtml=renderRTBDiagram();
+  else if(t.id==='dsp'||t.id==='ssp') diagramHtml=renderEcoDiagram();
+  let stepsHtml='';
+  if(t.steps) stepsHtml=`<div class="how-it-works"><h3>Step-by-step: how it works</h3><div class="steps">${t.steps.map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div class="step-content"><strong>${s.title}</strong><span>${s.desc}</span></div></div>`).join('')}</div></div>`;
+
+  const tabs=[{id:'definition',label:'Definition'},{id:'howit',label:'How It Works'},{id:'examples',label:'Examples'},{id:'related',label:'Related'}];
+  const tabBody = buildTermTabBody(t, termTab);
+
+  return `
+<div class="term-page">
+  <div class="breadcrumb">
+    <a onclick="navigate('home')">Home</a><span class="sep">›</span>
+    <a onclick="navigate('glossary')">Glossary</a><span class="sep">›</span>
+    <a onclick="navigate('category','${t.category}')">${cat?cat.icon+' '+cat.name:''}</a><span class="sep">›</span>
+    <span class="cur">${t.name.split('—')[0].trim()}</span>
+  </div>
+  <div class="term-header">
+    <h1>${t.name}</h1>
+    ${t.abbr?`<div class="abbr">Full name: ${t.abbr}</div>`:''}
+    <div class="term-meta-row">
+      <span class="tag ${t.category}">${cat?cat.icon+' '+cat.name:''}</span>
+      <button class="copy-def-btn" id="copy-btn" onclick="copyDef('${t.id}')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Definition
+      </button>
+    </div>
+  </div>
+  <div class="term-page-layout">
+    <div class="term-page-main">
+      <div class="tab-bar term-tabs">
+        ${tabs.map(tb=>`<button class="tab-btn ${termTab===tb.id?'active':''}" data-termtab="${tb.id}" onclick="termTab='${tb.id}';renderTermTabContent('${t.id}')">${tb.label}</button>`).join('')}
+      </div>
+      <div id="term-tab-body" class="tab-content">${tabBody}</div>
+      <div class="term-nav">
+        ${prev?`<button class="term-nav-btn prev" onclick="navigate('term','${prev.id}')"><div class="nav-dir">← Previous</div><div class="nav-name">${prev.name.length>40?prev.name.slice(0,40)+'…':prev.name}</div></button>`:'<div></div>'}
+        ${next?`<button class="term-nav-btn next" onclick="navigate('term','${next.id}')"><div class="nav-dir">Next →</div><div class="nav-name">${next.name.length>40?next.name.slice(0,40)+'…':next.name}</div></button>`:'<div></div>'}
+      </div>
+    </div>
+    <div class="term-sidebar">
+      <div class="sidebar-card">
+        <h4>Quick Info</h4>
+        <div class="meta-item"><span class="lbl">Category</span><span class="val">${cat?cat.name:'—'}</span></div>
+        ${t.abbr?`<div class="meta-item"><span class="lbl">Full Name</span><span class="val" style="font-size:12px">${t.abbr}</span></div>`:''}
+        ${t.aka?`<div class="meta-item"><span class="lbl">Also Known As</span><span class="val" style="font-size:12px">${t.aka.split(',')[0]}</span></div>`:''}
+      </div>
+      ${related.length?`<div class="sidebar-card"><h4>Related Terms</h4><div class="related-list">${related.map(r=>`<a class="related-item" onclick="navigate('term','${r.id}')">${r.name}</a>`).join('')}</div></div>`:''}
+      <div class="sidebar-card">
+        <h4>Navigation</h4>
+        <div class="related-list">
+          <a class="related-item" onclick="navigate('glossary')">← Full Glossary</a>
+          ${cat?`<a class="related-item" onclick="navigate('category','${cat.id}')">${cat.icon} ${cat.name}</a>`:''}
+        </div>
+      </div>
+      ${recentlyViewed.filter(rid=>rid!==t.id).length ? `<div class="sidebar-card"><h4>Recently Viewed</h4><div class="related-list">${recentlyViewed.filter(rid=>rid!==t.id).slice(0,4).map(rid=>{const rt=TERMS.find(x=>x.id===rid);return rt?`<a class="related-item" onclick="navigate('term','${rt.id}')">${rt.name}</a>`:''}).join('')}</div></div>` : ''}
+    </div>
+  </div>
+</div>`;
+}
+
+function buildTermTabBody(t, tab) {
+  const diagramHtml = t.id==='rtb' ? renderRTBDiagram() : (t.id==='dsp'||t.id==='ssp') ? renderEcoDiagram() : '';
+  const stepsHtml = t.steps ? `<div class="how-it-works"><h3>Step-by-step: how it works</h3><div class="steps">${t.steps.map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div class="step-content"><strong>${s.title}</strong><span>${s.desc}</span></div></div>`).join('')}</div></div>` : '';
+  if(tab==='definition') return `${t.aka?`<div class="aka-box"><strong>Also Known As</strong>${t.aka}</div>`:''}<div class="term-intro">${t.short}</div><div class="term-content"><h2>What is it?</h2><p>${t.definition}</p>${diagramHtml}${t.whyItMatters?`<h2>Why does it matter?</h2><p>${t.whyItMatters}</p>`:''}</div>`;
+  if(tab==='howit') return `<div class="term-content">${stepsHtml||`<p style="color:var(--text-muted);margin-top:8px">No step-by-step breakdown available yet. <button class="btn btn-outline btn-sm" onclick="termTab='definition';renderTermTabContent('${t.id}')" style="margin-left:12px">View Definition</button></p>`}${diagramHtml}</div>`;
+  if(tab==='examples') return `<div class="term-content">${t.example?`<h2>Real-world example</h2><div class="example-box"><div class="ex-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Real Example</div><p>${t.example}</p></div>`:'<p style="color:var(--text-muted)">No example available for this term yet.</p>'}</div>`;
+  if(tab==='related') { const rel=(t.related||[]).map(rid=>TERMS.find(x=>x.id===rid)).filter(Boolean); return rel.length?`<div class="term-grid" style="margin-top:8px">${rel.map(r=>renderTermCard(r)).join('')}</div>`:'<p style="color:var(--text-muted);margin-top:8px">No related terms listed.</p>'; }
+  return '';
+}
+
+function renderTermTabContent(id) {
+  const container = document.getElementById('term-tab-body');
+  if(!container) return;
+  const t = TERMS.find(x=>x.id===id);
+  if(!t) return;
+  document.querySelectorAll('.term-tabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.termtab === termTab));
+  container.style.transition = 'none';
+  container.style.opacity = '0';
+  container.innerHTML = buildTermTabBody(t, termTab);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    container.style.transition = 'opacity 0.18s ease';
+    container.style.opacity = '1';
+  }));
+}
+
+function copyDef(id) {
+  const t=TERMS.find(x=>x.id===id);
+  if(!t) return;
+  navigator.clipboard.writeText(t.name+': '+t.short).then(()=>{
+    const btn=document.getElementById('copy-btn');
+    if(btn){btn.classList.add('copied');btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Copied!';setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Definition';},2000);}
+  });
+}
+
+/* ============================================================
+   DIAGRAMS
+============================================================ */
+function renderRTBDiagram() {
+  return `<div class="term-diagram"><svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2B7FFF"/></marker></defs><rect x="10" y="70" width="110" height="60" rx="10" fill="#111F35" stroke="#2B7FFF" stroke-width="1.5"/><text x="65" y="94" text-anchor="middle" fill="#7DAAFF" font-size="11" font-weight="600" font-family="Sora,sans-serif">USER</text><text x="65" y="112" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Loads page</text><rect x="165" y="70" width="110" height="60" rx="10" fill="#111F35" stroke="#4ADE80" stroke-width="1.5"/><text x="220" y="94" text-anchor="middle" fill="#4ADE80" font-size="11" font-weight="600" font-family="Sora,sans-serif">SSP</text><text x="220" y="112" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Sends bid request</text><rect x="320" y="55" width="110" height="90" rx="10" fill="#111F35" stroke="#FCD34D" stroke-width="1.5"/><text x="375" y="88" text-anchor="middle" fill="#FCD34D" font-size="11" font-weight="600" font-family="Sora,sans-serif">AD EXCHANGE</text><text x="375" y="106" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Runs auction</text><text x="375" y="122" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">~80ms</text><rect x="475" y="70" width="110" height="60" rx="10" fill="#111F35" stroke="#C084FC" stroke-width="1.5"/><text x="530" y="94" text-anchor="middle" fill="#C084FC" font-size="11" font-weight="600" font-family="Sora,sans-serif">DSP</text><text x="530" y="112" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Evaluates & bids</text><line x1="120" y1="100" x2="162" y2="100" stroke="#2B7FFF" stroke-width="1.5" marker-end="url(#arr)"/><line x1="275" y1="100" x2="317" y2="100" stroke="#2B7FFF" stroke-width="1.5" marker-end="url(#arr)"/><line x1="432" y1="85" x2="472" y2="88" stroke="#2B7FFF" stroke-width="1.5" marker-end="url(#arr)"/><line x1="472" y1="108" x2="432" y2="112" stroke="#FCD34D" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/><text x="141" y="93" text-anchor="middle" fill="#4A5A78" font-size="9" font-family="Sora,sans-serif">1. Page load</text><text x="296" y="93" text-anchor="middle" fill="#4A5A78" font-size="9" font-family="Sora,sans-serif">2. Bid request</text><text x="453" y="80" text-anchor="middle" fill="#4A5A78" font-size="9" font-family="Sora,sans-serif">3. Bids in</text><text x="453" y="122" text-anchor="middle" fill="#FCD34D" font-size="9" font-family="Sora,sans-serif">4. Winner</text><text x="340" y="185" text-anchor="middle" fill="#4A5A78" font-size="10" font-family="Sora,sans-serif">Entire process completes in under 100 milliseconds</text></svg></div>`;
+}
+
+function renderEcoDiagram() {
+  return `<div class="term-diagram"><svg viewBox="0 0 680 150" xmlns="http://www.w3.org/2000/svg"><defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2B7FFF"/></marker></defs><rect x="10" y="35" width="130" height="70" rx="10" fill="#111F35" stroke="#2B7FFF" stroke-width="1.5"/><text x="75" y="65" text-anchor="middle" fill="#7DAAFF" font-size="11" font-weight="600" font-family="Sora,sans-serif">ADVERTISER</text><text x="75" y="83" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Uses DSP</text><rect x="185" y="35" width="130" height="70" rx="10" fill="#111F35" stroke="#C084FC" stroke-width="1.5"/><text x="250" y="65" text-anchor="middle" fill="#C084FC" font-size="11" font-weight="600" font-family="Sora,sans-serif">DSP</text><text x="250" y="83" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Buying platform</text><rect x="360" y="15" width="130" height="110" rx="10" fill="#111F35" stroke="#FCD34D" stroke-width="1.5"/><text x="425" y="58" text-anchor="middle" fill="#FCD34D" font-size="11" font-weight="600" font-family="Sora,sans-serif">AD EXCHANGE</text><text x="425" y="76" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Auction marketplace</text><text x="425" y="94" text-anchor="middle" fill="#4A5A78" font-size="9" font-family="Sora,sans-serif">Connects buyers & sellers</text><rect x="535" y="35" width="130" height="70" rx="10" fill="#111F35" stroke="#4ADE80" stroke-width="1.5"/><text x="600" y="65" text-anchor="middle" fill="#4ADE80" font-size="11" font-weight="600" font-family="Sora,sans-serif">SSP / PUBLISHER</text><text x="600" y="83" text-anchor="middle" fill="#7B90B8" font-size="10" font-family="Sora,sans-serif">Selling platform</text><line x1="140" y1="70" x2="183" y2="70" stroke="#2B7FFF" stroke-width="1.5" marker-end="url(#a2)"/><line x1="315" y1="70" x2="358" y2="70" stroke="#2B7FFF" stroke-width="1.5" marker-end="url(#a2)"/><line x1="492" y1="70" x2="533" y2="70" stroke="#2B7FFF" stroke-width="1.5" marker-end="url(#a2)"/></svg></div>`;
+}
+
+/* ============================================================
+   CATEGORIES
+============================================================ */
+function renderCategories() {
+  return `
+<div style="padding:50px 0 38px;border-bottom:1px solid var(--border);margin-bottom:44px">
+  <div class="breadcrumb" style="padding:0 0 16px"><a onclick="navigate('home')">Home</a><span class="sep">›</span><span class="cur">Categories</span></div>
+  <h1 style="font-family:var(--font-head);font-size:2.1rem;font-weight:800;margin-bottom:10px">All Categories</h1>
+  <p style="color:var(--text-muted);font-size:1rem">Browse terms organised by topic. Each category covers a key area of digital advertising.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:80px">
+  ${CATEGORIES.map(c=>{
+    const terms=TERMS.filter(t=>t.category===c.id);
+    return `<div class="cat-card" style="padding:26px" onclick="navigate('category','${c.id}')">
+      <div class="cat-icon" style="background:${c.color};width:52px;height:52px;font-size:24px">${c.icon}</div>
+      <h3 style="font-size:16px">${c.name}</h3>
+      <p style="font-size:13.5px">${c.desc}</p>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <span style="font-size:11px;color:var(--text-dim)">${terms.length} terms</span>
+      </div>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:5px">${terms.slice(0,3).map(t=>`<span style="font-size:11px;color:var(--text-dim);background:var(--surface);padding:2px 8px;border-radius:20px;border:1px solid var(--border)">${t.name.split('—')[0].trim()}</span>`).join('')}${terms.length>3?`<span style="font-size:11px;color:var(--text-dim)">+${terms.length-3} more</span>`:''}</div>
+    </div>`;}).join('')}
+</div>`;
+}
+
+function renderCategory(id) {
+  const cat=CATEGORIES.find(c=>c.id===id);
+  if(!cat) return `<div style="padding:80px 0;text-align:center"><h2>Category not found</h2></div>`;
+  const allTerms=TERMS.filter(t=>t.category===id);
+  return `
+<div class="cat-page-hero">
+  <div class="breadcrumb" style="padding:0 0 16px"><a onclick="navigate('home')">Home</a><span class="sep">›</span><a onclick="navigate('categories')">Categories</a><span class="sep">›</span><span class="cur">${cat.name}</span></div>
+  <div class="cat-icon-lg" style="background:${cat.color}">${cat.icon}</div>
+  <h1>${cat.name}</h1>
+  <p>${cat.desc}</p>
+  <div class="cat-stat-row">
+    <div class="cat-stat"><div class="n">${allTerms.length}</div><div class="l">Terms</div></div>
+  </div>
+</div>
+<div class="term-grid" style="margin-bottom:60px">${allTerms.map(t=>renderTermCard(t)).join('')}</div>
+<a class="back-btn" onclick="navigate('categories')" style="display:inline-flex;margin-bottom:40px">← All Categories</a>`;
+}
+
+/* ============================================================
+   ABOUT
+============================================================ */
+function renderAbout() {
+  return `
+<div class="breadcrumb"><a onclick="navigate('home')">Home</a><span class="sep">›</span><span class="cur">About</span></div>
+<div style="max-width:700px;padding:40px 0 80px">
+  <h1 style="font-family:var(--font-head);font-size:2.2rem;font-weight:800;margin-bottom:18px">About AdOpsDesk</h1>
+  <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.85;margin-bottom:18px">AdOpsDesk was built for one simple reason: the world of digital advertising is full of acronyms, jargon, and technical terms that can be incredibly intimidating — whether you're new to AdOps or a seasoned practitioner who's never had time to properly understand something you've been nodding along to for years.</p>
+  <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.85;margin-bottom:18px">Every definition here is written in plain English. We use real examples. We explain why something matters, not just what it is. We want you to leave actually understanding the concept — not just having read about it.</p>
+  <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.85;margin-bottom:36px">Whether you're an account manager navigating your first programmatic campaign, a marketer trying to understand your agency's reports, or an AdOps professional brushing up on a corner of the ecosystem — this is for you. Free, always.</p>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center;margin-bottom:32px">
+    <div><div style="font-size:1.7rem;font-weight:700;font-family:var(--font-head);color:var(--accent)">${TERMS.length}+</div><div style="color:var(--text-muted);font-size:13px;margin-top:4px">Terms defined</div></div>
+    <div><div style="font-size:1.7rem;font-weight:700;font-family:var(--font-head);color:var(--accent)">6</div><div style="color:var(--text-muted);font-size:13px;margin-top:4px">Categories</div></div>
+    <div><div style="font-size:1.7rem;font-weight:700;font-family:var(--font-head);color:var(--accent)">0</div><div style="color:var(--text-muted);font-size:13px;margin-top:4px">Sign-ups needed</div></div>
+  </div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <button class="btn btn-primary" onclick="navigate('glossary')">Browse the Glossary</button>
+    <button class="btn btn-outline" onclick="navigate('categories')">Explore Categories</button>
+  </div>
+</div>`;
+}
+
+/* ============================================================
+   INIT — fetch data from server then render
+============================================================ */
+async function init() {
+  // Show a loading state while we fetch
+  document.getElementById('app').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:60vh;flex-direction:column;gap:16px">
+      <div style="width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite"></div>
+      <p style="color:var(--text-muted);font-size:15px">Loading AdOpsDesk...</p>
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+  `;
+  try {
+    const res  = await fetch('/api/data');
+    if (!res.ok) throw new Error('Server error ' + res.status);
+    const data = await res.json();
+    TERMS      = data.terms;
+    CATEGORIES = data.categories;
+    render();
+  } catch (err) {
+    document.getElementById('app').innerHTML = `
+      <div style="text-align:center;padding:80px 20px;color:var(--text-muted)">
+        <div style="font-size:3rem;margin-bottom:16px">⚠️</div>
+        <h2 style="font-family:var(--font-head);margin-bottom:10px">Could not load data</h2>
+        <p>Please refresh the page or check your connection.</p>
+        <button class="btn btn-outline" onclick="init()" style="margin-top:20px">Try again</button>
+      </div>`;
+    console.error('AdOpsDesk init error:', err);
+  }
+}
+init();
+</script>
+</body>
+</html>
